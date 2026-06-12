@@ -247,7 +247,7 @@
     function generatePDF() {
         const { jsPDF } = window.jspdf;
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const pdf = new jsPDF('p', 'px', [canvas.width, canvas.height]);
+        const pdf = new jsPDF('l', 'px', [canvas.width, canvas.height]);
         pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
         pdf.save("prescriptions.pdf");
     }
