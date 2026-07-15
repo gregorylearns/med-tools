@@ -5,9 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescription Pad Generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>Forms Generator</title>
+    <script src="assets/jspdf.umd.min.js"></script>
     <style>
+        @font-face {
+            font-family: 'RobotoMono';
+            src: url('assets/RobotoMono-Regular.ttf') format('truetype');
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f7f6;
@@ -149,7 +153,6 @@
 
     </div>
     <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
-    <p><i>For more info contact g. abrasaldo</i></p>
     <div class="controls">
         <button onclick="generatePDF()">Print Prescription</button>
     </div>
@@ -157,6 +160,9 @@
     <div class="preview-label">Live Preview</div>
     <!-- Canvas for Live Preview and Processing -->
     <canvas id="pdfCanvas"></canvas>
+    <p><i>For more info contact g. abrasaldo</i></p>
+    <p><i>For any suggestions/improvements please feel free to submit a pull request</i></p>
+    <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
     </div> <!-- closes .container -->
 </div> <!-- closes #app -->
 
@@ -185,6 +191,7 @@
     const img = new Image();
     
     // Pre-load the image template
+    img.crossOrigin = "Anonymous";
     img.src = 'template.png';
     img.onload = () => {
         // Set high-res A4 dimensions (300 DPI)
@@ -211,11 +218,10 @@
         const padX = 120;
         const padY = 150;
 
-        for (let i = 1; i <= 4; i++) {
-            const isRight = (i === 2 || i === 4);
-            const isBottom = (i === 3 || i === 4);
+        for (let i = 1; i <= 2; i++) {
+            const isRight = (i === 2);
             const xBase = isRight ? midX : 0;
-            const yBase = isBottom ? midY : 0;
+            const yBase = 0;
 
             const name = document.getElementById(`name${i}`).value;
             const ward = document.getElementById(`ward${i}`).value;
@@ -225,10 +231,10 @@
             const text = document.getElementById(`text${i}`).value;
 
             // Draw Metadata
-            ctx.font = "28px Arial";
+            ctx.font = "28px 'RobotoMono', monospace";
             ctx.fillText(name, xBase + padX + 195, yBase + padY + 295);
             
-            ctx.font = "28px Arial";
+            ctx.font = "28px 'RobotoMono', monospace";
             ctx.fillText(ward, xBase + padX + 200 , yBase + padY + 395);
             ctx.fillText(tag, xBase + padX + 1020, yBase + padY + 395);
 
@@ -236,7 +242,7 @@
             ctx.fillText(date, xBase + padX + 1020, yBase + padY + 295);
 
             // Draw Prescription Text
-            ctx.font = "36px Arial";
+            ctx.font = "34px 'RobotoMono', monospace";
             const lines = text.split('\n');
             lines.forEach((line, index) => {
                 ctx.fillText(line, xBase + padX + 65, yBase + padY + 675 + (index * 65));
@@ -245,11 +251,29 @@
     }
 
     function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const pdf = new jsPDF('l', 'px', [canvas.width, canvas.height]);
-        pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-        pdf.save("prescriptions.pdf");
+        // Use a timeout to ensure the canvas is fully rendered before capturing
+        setTimeout(() => {
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('l', 'pt', 'a4');
+                
+                // Get canvas data
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                
+                // Get page dimensions
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                
+                // Add image to fit page
+                pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+                const pdfBlob = pdf.output('blob');
+                const blobUrl = URL.createObjectURL(pdfBlob);
+                window.open(blobUrl, '_blank');
+            } catch (error) {
+                console.error("PDF Generation Error:", error);
+                alert("Could not generate PDF. Error: " + error.message);
+            }
+        }, 100);
     }
 </script>
 </body>
