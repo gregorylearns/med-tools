@@ -9,6 +9,9 @@
     <script src="assets/jspdf.umd.min.js"></script>
     <script src="forms-config.js"></script>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         @font-face {
             font-family: 'RobotoMono';
             src: url('assets/RobotoMono-Regular.ttf') format('truetype');
@@ -58,6 +61,8 @@
             border-radius: 4px;
             font-size: 13px;
             flex: 1;
+            min-width: 0;
+            box-sizing: border-box;
         }
         .meta-row input.small {
             flex: 0 0 60px;
@@ -226,6 +231,13 @@
                     input.placeholder = field.placeholder;
                     if (field.class) {
                         input.className = field.class;
+                    }
+                    if (field.width) {
+                        input.style.width = field.width;
+                        input.style.flex = 'none';
+                    }
+                    if (field.flex) {
+                        input.style.flex = field.flex;
                     }
                     input.oninput = updatePreview;
                     currentRow.appendChild(input);
