@@ -287,7 +287,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 660,
             y: 720,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             flex: 4
           },
           {
@@ -298,7 +298,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1720,
             y: 720,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             flex: 2
           },
           {
@@ -308,7 +308,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 680,
             y: 800,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true,
             flex: 4
           },
@@ -319,7 +319,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1720,
             y: 800,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             flex: 1
           },
           {
@@ -329,7 +329,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1940,
             y: 800,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             flex: 1
           },
           {
@@ -339,7 +339,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 700,
             y: 890,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -347,9 +347,9 @@ const FORMS_CONFIG = {
             label: "impression",
             placeholder: "impression",
             type: "text",
-            x: 580,
+            x: 570,
             y: 970,
-            font: "48px 'RobotoMono', monospace",
+            font: "24px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -359,7 +359,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 790,
             y: 1050,
-            font: "48px 'RobotoMono', monospace",
+            font: "24px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -369,7 +369,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 620,
             y: 1130,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -379,7 +379,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 910,
             y: 1210,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -389,7 +389,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 520,
             y: 1290,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -399,7 +399,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1500,
             y: 1290,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
           },
           {
             id: "orp_anesthesiologist",
@@ -408,7 +408,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 710,
             y: 1370,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -418,7 +418,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 870,
             y: 1450,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -428,7 +428,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 310,
             y: 1580,
-            font: "48px 'RobotoMono', monospace",
+            font: "36px 'RobotoMono', monospace",
             newRow: true
           },
         ],
