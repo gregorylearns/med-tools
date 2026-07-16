@@ -135,7 +135,7 @@
         <div id="formFieldsContainer" class="grid">
             <!-- Dynamic fields will be rendered here -->
         </div>
-
+    <p><i>Tip: press the Tab key after each input field to move to the next field</i></p>
     <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
     <div class="controls">
         <button id="printBtn" onclick="generatePDF()">Print Form</button>
@@ -219,6 +219,9 @@
                     sectionDiv.appendChild(textarea);
                     currentRow = null; // Reset row grouping
                 } else {
+                    if (field.newRow) {
+                        currentRow = null;
+                    }
                     // Text inputs are grouped into meta-rows
                     if (!currentRow) {
                         currentRow = document.createElement('div');

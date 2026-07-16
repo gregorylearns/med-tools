@@ -266,4 +266,171 @@ const FORMS_CONFIG = {
       },
     ],
   },
+  orproposal: {
+    name: "OR Proposal",
+    template: "orproposal.png",
+    canvasWidth: 2480, // A4 Portrait 300 DPI
+    canvasHeight: 3508,
+    pdfOrientation: "p",
+    pdfUnit: "pt",
+    pdfFormat: "a4",
+    sections: [
+      {
+        title: "OR Proposal",
+        fields: [
+          {
+            id: "orp_department",
+            label: "department",
+            placeholder: "Department Of: ",
+            type: "text",
+            x: 660,
+            y: 720,
+            font: "48px 'RobotoMono', monospace",
+            flex: 4
+          },
+          {
+            id: "orp_date",
+            label: "date",
+            placeholder: "Date",
+            type: "text",
+            class: "small",
+            x: 1720,
+            y: 720,
+            font: "48px 'RobotoMono', monospace",
+            flex: 2
+          },
+          {
+            id: "orp_name",
+            label: "Name of Patient",
+            placeholder: "Name of Patient",
+            type: "text",
+            x: 680,
+            y: 800,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true,
+            flex: 4
+          },
+          {
+            id: "orp_age",
+            label: "age of Patient",
+            placeholder: "Age of Patient",
+            type: "text",
+            x: 1720,
+            y: 800,
+            font: "48px 'RobotoMono', monospace",
+            flex: 1
+          },
+          {
+            id: "orp_sex",
+            label: "Sex of Patient",
+            placeholder: "Sex of Patient",
+            type: "text",
+            x: 1940,
+            y: 800,
+            font: "48px 'RobotoMono', monospace",
+            flex: 1
+          },
+          {
+            id: "orp_floor_bed",
+            label: "Floor and Bed Number",
+            placeholder: "Floor and Bed Number",
+            type: "text",
+            x: 700,
+            y: 890,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_impression",
+            label: "impression",
+            placeholder: "impression",
+            type: "text",
+            x: 580,
+            y: 970,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_proposed_operation",
+            label: "Proposed Operation",
+            placeholder: "Proposed operation...",
+            type: "text",
+            x: 790,
+            y: 1050,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_date_and_time",
+            label: "Date and Time of Surgery",
+            placeholder: "Enter Date and Time of Surgery...",
+            type: "text",
+            x: 620,
+            y: 1130,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_est_time_surgery",
+            label: "Estimated Time of Surgery",
+            placeholder: "Enter Estimated Time of Surgery...",
+            type: "text",
+            x: 910,
+            y: 1210,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_surgeon",
+            label: "Surgeon Name",
+            placeholder: "Enter Surgeon name",
+            type: "text",
+            x: 520,
+            y: 1290,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_asstsurgeon",
+            label: "Asst Surgeon Name",
+            placeholder: "Enter Asst Surgeon name",
+            type: "text",
+            x: 1500,
+            y: 1290,
+            font: "48px 'RobotoMono', monospace",
+          },
+          {
+            id: "orp_anesthesiologist",
+            label: "Anesthesiologist Name",
+            placeholder: "Enter Anesthesiologist name",
+            type: "text",
+            x: 710,
+            y: 1370,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_position_during_surgery",
+            label: "Position During Surgery",
+            placeholder: "Enter Position during Surgery",
+            type: "text",
+            x: 870,
+            y: 1450,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_instruments",
+            label: "Instruments needed",
+            placeholder: "Enter instruments needed",
+            type: "text",
+            x: 310,
+            y: 1580,
+            font: "48px 'RobotoMono', monospace",
+            newRow: true
+          },
+        ],
+      },
+    ],
+  },
 };
