@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forms Generator</title>
     <script src="assets/jspdf.umd.min.js"></script>
+    <script src="forms-config.js"></script>
     <style>
         @font-face {
             font-family: 'RobotoMono';
@@ -118,43 +119,21 @@
 <div id="app" style="display:none;">
     <div class="container">
 
-        <h1>Prescription Pad Generator</h1>
-        <p>Enter text for each of the 4 sections below:</p>
+        <h1 id="formTitle">Forms Generator</h1>
         
-        <div class="grid">
-            <!-- Quadrant 1 -->
-            <div class="quadrant">
-                <div class="meta-row">
-                    <input type="text" id="name1" placeholder="Name" oninput="updatePreview()">
-                    <input type="text" id="date1" placeholder="Date" class="small" oninput="updatePreview()">
-                </div>
-                <div class="meta-row">
-                    <input type="text" id="ward1" placeholder="Ward/Unit" oninput="updatePreview()">
-                    <input type="text" id="age1" placeholder="Age/Sex" class="small" oninput="updatePreview()">
-                    <input type="text" id="tag1" placeholder="Tag #" class="small" oninput="updatePreview()">
-                </div>
-                <textarea id="text1" placeholder="Prescription (Top Left)" oninput="updatePreview()"></textarea>
-            </div>
-            <!-- Quadrant 2 -->
-            <div class="quadrant">
-                <div class="meta-row">
-                    <input type="text" id="name2" placeholder="Name" oninput="updatePreview()">
-                    <input type="text" id="date2" placeholder="Date" class="small" oninput="updatePreview()">
-                </div>
-                <div class="meta-row">
-                    <input type="text" id="ward2" placeholder="Ward/Unit" oninput="updatePreview()">                
-                    <input type="text" id="age2" placeholder="Age/Sex" class="small" oninput="updatePreview()">
-                    <input type="text" id="tag2" placeholder="Tag #" class="small" oninput="updatePreview()">
-                </div>
-                <textarea id="text2" placeholder="Prescription (Top Right)" oninput="updatePreview()"></textarea>
-            </div>
+        <div style="margin-bottom: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <label for="formSelector" style="font-weight: bold; font-size: 16px;">Select Form Template:</label>
+            <select id="formSelector" onchange="selectForm(this.value)" style="padding: 10px 20px; font-size: 16px; border-radius: 6px; border: 1px solid #ccc; width: 100%; max-width: 400px; background-color: #fff; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            </select>
+        </div>
+        
+        <div id="formFieldsContainer" class="grid">
+            <!-- Dynamic fields will be rendered here -->
+        </div>
 
-
-
-    </div>
     <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
     <div class="controls">
-        <button onclick="generatePDF()">Print Prescription</button>
+        <button id="printBtn" onclick="generatePDF()">Print Form</button>
     </div>
     <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
     <div class="preview-label">Live Preview</div>
@@ -167,41 +146,113 @@
 </div> <!-- closes #app -->
 
 <script>
-    function login() {
-
-    const password =
-        document.getElementById('pw').value;
-
-    if (password === '1') {
-
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('app').style.display = 'block';
-
-        updatePreview();
-
-    } else {
-
-        document.getElementById('loginError').textContent =
-            'Incorrect access code';
-
-    }
-}
+    let currentFormKey = 'prescription';
     const canvas = document.getElementById('pdfCanvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
-    
-    // Pre-load the image template
-    img.crossOrigin = "Anonymous";
-    img.src = 'template.png';
-    img.onload = () => {
-        // Set high-res A4 dimensions (300 DPI)
-        canvas.width = 3508;
-        canvas.height = 2480;
-        updatePreview();
-    };
+
+    function login() {
+        const password = document.getElementById('pw').value;
+        if (password === '1') {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            initApp();
+        } else {
+            document.getElementById('loginError').textContent = 'Incorrect access code';
+        }
+    }
+
+    function initApp() {
+        // Populate form selector dropdown
+        const selector = document.getElementById('formSelector');
+        selector.innerHTML = '';
+        for (const key in FORMS_CONFIG) {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = FORMS_CONFIG[key].name;
+            selector.appendChild(option);
+        }
+
+        // Load initial form
+        selectForm(currentFormKey);
+    }
+
+    function selectForm(formKey) {
+        currentFormKey = formKey;
+        const config = FORMS_CONFIG[formKey];
+        if (!config) return;
+
+        // Update Title and Button
+        document.getElementById('formTitle').textContent = config.name + " Generator";
+        document.getElementById('printBtn').textContent = "Print " + config.name;
+
+        // Render Fields
+        const container = document.getElementById('formFieldsContainer');
+        container.innerHTML = '';
+
+        config.sections.forEach((section, sIdx) => {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'quadrant';
+            
+            const sectionTitle = document.createElement('h3');
+            sectionTitle.textContent = section.title;
+            sectionTitle.style.margin = '0 0 10px 0';
+            sectionTitle.style.fontSize = '16px';
+            sectionTitle.style.color = '#555';
+            sectionDiv.appendChild(sectionTitle);
+
+            // Group fields into rows for better layout
+            let currentRow = null;
+
+            section.fields.forEach((field) => {
+                if (field.type === 'textarea') {
+                    // Textareas always get their own row/block
+                    const textarea = document.createElement('textarea');
+                    textarea.id = field.id;
+                    textarea.placeholder = field.placeholder;
+                    textarea.oninput = updatePreview;
+                    sectionDiv.appendChild(textarea);
+                    currentRow = null; // Reset row grouping
+                } else {
+                    // Text inputs are grouped into meta-rows
+                    if (!currentRow) {
+                        currentRow = document.createElement('div');
+                        currentRow.className = 'meta-row';
+                        sectionDiv.appendChild(currentRow);
+                    }
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = field.id;
+                    input.placeholder = field.placeholder;
+                    if (field.class) {
+                        input.className = field.class;
+                    }
+                    input.oninput = updatePreview;
+                    currentRow.appendChild(input);
+
+                    // If the input is small, we might want to keep it in the same row,
+                    // but if we have too many inputs, we can let them flow or limit them.
+                }
+            });
+
+            container.appendChild(sectionDiv);
+        });
+
+        // Load template image
+        img.crossOrigin = "Anonymous";
+        img.src = config.template;
+        img.onload = () => {
+            canvas.width = config.canvasWidth;
+            canvas.height = config.canvasHeight;
+            updatePreview();
+        };
+    }
 
     function updatePreview() {
         if (!img.complete) return;
+
+        const config = FORMS_CONFIG[currentFormKey];
+        if (!config) return;
 
         // 1. Clear and Draw Template
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -211,51 +262,39 @@
         ctx.fillStyle = "black";
         ctx.textBaseline = "top";
 
-        const midX = canvas.width / 2;
-        const midY = canvas.height / 2;
-        
-        // Base padding within each A6 section relative to 300 DPI
-        const padX = 120;
-        const padY = 150;
+        // Draw all fields
+        config.sections.forEach((section) => {
+            section.fields.forEach((field) => {
+                const element = document.getElementById(field.id);
+                if (!element) return;
 
-        for (let i = 1; i <= 2; i++) {
-            const isRight = (i === 2);
-            const xBase = isRight ? midX : 0;
-            const yBase = 0;
+                const val = element.value || '';
+                if (!val) return;
 
-            const name = document.getElementById(`name${i}`).value;
-            const ward = document.getElementById(`ward${i}`).value;
-            const tag = document.getElementById(`tag${i}`).value;
-            const age = document.getElementById(`age${i}`).value;
-            const date = document.getElementById(`date${i}`).value;
-            const text = document.getElementById(`text${i}`).value;
+                ctx.font = field.font || "28px 'RobotoMono', monospace";
 
-            // Draw Metadata
-            ctx.font = "28px 'RobotoMono', monospace";
-            ctx.fillText(name, xBase + padX + 195, yBase + padY + 295);
-            
-            ctx.font = "28px 'RobotoMono', monospace";
-            ctx.fillText(ward, xBase + padX + 200 , yBase + padY + 395);
-            ctx.fillText(tag, xBase + padX + 1020, yBase + padY + 395);
-
-            ctx.fillText(age, xBase + padX + 800 , yBase + padY + 395);
-            ctx.fillText(date, xBase + padX + 1020, yBase + padY + 295);
-
-            // Draw Prescription Text
-            ctx.font = "34px 'RobotoMono', monospace";
-            const lines = text.split('\n');
-            lines.forEach((line, index) => {
-                ctx.fillText(line, xBase + padX + 65, yBase + padY + 675 + (index * 65));
+                if (field.isMultiline) {
+                    const lines = val.split('\n');
+                    const lineHeight = field.lineHeight || 65;
+                    lines.forEach((line, index) => {
+                        ctx.fillText(line, field.x, field.y + (index * lineHeight));
+                    });
+                } else {
+                    ctx.fillText(val, field.x, field.y);
+                }
             });
-        }
+        });
     }
 
     function generatePDF() {
+        const config = FORMS_CONFIG[currentFormKey];
+        if (!config) return;
+
         // Use a timeout to ensure the canvas is fully rendered before capturing
         setTimeout(() => {
             try {
                 const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('l', 'pt', 'a4');
+                const pdf = new jsPDF(config.pdfOrientation || 'l', config.pdfUnit || 'pt', config.pdfFormat || 'a4');
                 
                 // Get canvas data
                 const imgData = canvas.toDataURL('image/jpeg', 0.95);
