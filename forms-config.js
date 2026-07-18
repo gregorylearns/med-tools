@@ -162,7 +162,7 @@ const FORMS_CONFIG = {
     pdfFormat: "a4",
     sections: [
       {
-        title: "Patient Information",
+        title: "INTER-DEPARTMENTAL REFERRAL SHEET",
         fields: [
           {
             id: "idr_datetime",
@@ -172,6 +172,8 @@ const FORMS_CONFIG = {
             x: 615,
             y: 770,
             font: "48px 'RobotoMono', monospace",
+            newRow: true,
+            flex: 1
           },
           {
             id: "idr_agesex",
@@ -182,15 +184,17 @@ const FORMS_CONFIG = {
             x: 1580,
             y: 770,
             font: "48px 'RobotoMono', monospace",
+            flex: 1
           },
           {
             id: "idr_referred_from",
-            label: "Referred From",
-            placeholder: "Referred From",
+            label: "Enter Referred From (Department)",
+            placeholder: "Enter Referred From (Department)",
             type: "text",
             x: 615,
             y: 855,
             font: "48px 'RobotoMono', monospace",
+            newRow: true
           },
           {
             id: "idr_referring_physician",
@@ -200,6 +204,7 @@ const FORMS_CONFIG = {
             x: 615,
             y: 955,
             font: "48px 'RobotoMono', monospace",
+            newRow: true
           },
           {
             id: "idr_referred_to",
@@ -209,6 +214,7 @@ const FORMS_CONFIG = {
             x: 615,
             y: 1055,
             font: "48px 'RobotoMono', monospace",
+            newRow: true
           },
           {
             id: "idr_reason_for_referral",
