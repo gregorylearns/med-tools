@@ -348,8 +348,8 @@ const FORMS_CONFIG = {
             placeholder: "impression",
             type: "text",
             x: 570,
-            y: 970,
-            font: "20px 'RobotoMono', monospace",
+            y: 975,
+            font: "22px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -359,7 +359,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 790,
             y: 1050,
-            font: "20px 'RobotoMono', monospace",
+            font: "22px 'RobotoMono', monospace",
             newRow: true
           },
           {
@@ -426,8 +426,8 @@ const FORMS_CONFIG = {
             label: "Instruments needed",
             placeholder: "Enter instruments needed",
             type: "text",
-            x: 310,
-            y: 1580,
+            x: 770,
+            y: 1540,
             font: "28px 'RobotoMono', monospace",
             newRow: true
           },
