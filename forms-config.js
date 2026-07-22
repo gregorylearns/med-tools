@@ -31,6 +31,7 @@ const FORMS_CONFIG = {
             y: 445,
             font: "28px 'RobotoMono', monospace",
             flex: 1,
+            showNowButton: true,
           },
           {
             id: "ward1",
@@ -103,6 +104,7 @@ const FORMS_CONFIG = {
             y: 445,
             font: "28px 'RobotoMono', monospace",
             flex: 1,
+            showNowButton: true,
           },
           {
             id: "ward2",
@@ -169,13 +171,14 @@ const FORMS_CONFIG = {
           {
             id: "idr_datetime",
             label: "Date and Time",
-            placeholder: "Date and Time Referred",
+            placeholder: "Date and Time Referred:",
             type: "text",
             x: 615,
             y: 770,
             font: "48px 'RobotoMono', monospace",
             newRow: true,
-            flex: 1
+            flex: 1,
+            showNowButton: true,
           },
           {
             id: "idr_agesex",
@@ -190,8 +193,8 @@ const FORMS_CONFIG = {
           },
           {
             id: "idr_referred_from",
-            label: "Enter Referred From (Department)",
-            placeholder: "Enter Referred From (Department)",
+            label: "Referred From (Department)",
+            placeholder: "Referred From (Department):",
             type: "text",
             x: 615,
             y: 855,
@@ -201,7 +204,7 @@ const FORMS_CONFIG = {
           {
             id: "idr_referring_physician",
             label: "Referring Physician",
-            placeholder: "Enter Referring Physician",
+            placeholder: "Referring Physician:",
             type: "text",
             x: 615,
             y: 955,
@@ -211,7 +214,7 @@ const FORMS_CONFIG = {
           {
             id: "idr_referred_to",
             label: "Referred To",
-            placeholder: "Enter Referred to Department",
+            placeholder: "Referred to (Department):",
             type: "text",
             x: 615,
             y: 1055,
@@ -221,7 +224,7 @@ const FORMS_CONFIG = {
           {
             id: "idr_reason_for_referral",
             label: "Reason for Referral",
-            placeholder: "Enter reason for referral...",
+            placeholder: "Reason for referral:",
             type: "textarea",
             x: 160,
             y: 1180,
@@ -233,7 +236,7 @@ const FORMS_CONFIG = {
           {
             id: "idr_pertinent_history_pe",
             label: "Pertinent History and PE",
-            placeholder: "Enter pertinent history and PE...",
+            placeholder: "Pertinent history and PE:",
             type: "textarea",
             x: 160,
             y: 1490,
@@ -245,7 +248,7 @@ const FORMS_CONFIG = {
           {
             id: "idr_assessment",
             label: "Assessment",
-            placeholder: "Enter assessment...",
+            placeholder: "Assessment:",
             type: "textarea",
             x: 160,
             y: 2650,
@@ -257,7 +260,7 @@ const FORMS_CONFIG = {
           {
             id: "idr_name",
             label: "Patient Name",
-            placeholder: "Enter Patient name",
+            placeholder: "Patient Name:",
             type: "text",
             x: 160,
             y: 3175,
@@ -266,7 +269,7 @@ const FORMS_CONFIG = {
           {
             id: "idr_hospital_no",
             label: "Hospital no",
-            placeholder: "Enter hospital no",
+            placeholder: "Hospital No:",
             type: "text",
             x: 1600,
             y: 3175,
@@ -301,18 +304,19 @@ const FORMS_CONFIG = {
           {
             id: "orp_date",
             label: "date",
-            placeholder: "Date",
+            placeholder: "Date:",
             type: "text",
             class: "small",
             x: 1720,
             y: 720,
             font: "28px 'RobotoMono', monospace",
-            flex: 2
+            flex: 2,
+            showNowButton: true,
           },
           {
             id: "orp_name",
             label: "Name of Patient",
-            placeholder: "Name of Patient",
+            placeholder: "Name of Patient:",
             type: "text",
             x: 680,
             y: 800,
@@ -323,7 +327,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_age",
             label: "age of Patient",
-            placeholder: "Age of Patient",
+            placeholder: "Age:",
             type: "text",
             x: 1720,
             y: 800,
@@ -333,7 +337,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_sex",
             label: "Sex of Patient",
-            placeholder: "Sex of Patient",
+            placeholder: "Sex:",
             type: "text",
             x: 1940,
             y: 800,
@@ -343,7 +347,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_floor_bed",
             label: "Floor and Bed Number",
-            placeholder: "Floor and Bed Number",
+            placeholder: "Floor and Bed Number:",
             type: "text",
             x: 700,
             y: 890,
@@ -353,7 +357,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_impression",
             label: "impression",
-            placeholder: "impression",
+            placeholder: "Impression:",
             type: "text",
             x: 570,
             y: 975,
@@ -363,7 +367,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_proposed_operation",
             label: "Proposed Operation",
-            placeholder: "Proposed operation...",
+            placeholder: "Proposed operation:",
             type: "text",
             x: 790,
             y: 1050,
@@ -373,17 +377,17 @@ const FORMS_CONFIG = {
           {
             id: "orp_date_and_time",
             label: "Date and Time of Surgery",
-            placeholder: "Enter Date and Time of Surgery...",
+            placeholder: "EDate and Time of Surgery:",
             type: "text",
             x: 620,
             y: 1130,
             font: "28px 'RobotoMono', monospace",
-            newRow: true
+            newRow: true,
           },
           {
             id: "orp_est_time_surgery",
             label: "Estimated Time of Surgery",
-            placeholder: "Enter Estimated Time of Surgery...",
+            placeholder: "Estimated Time of Surgery:",
             type: "text",
             x: 910,
             y: 1210,
@@ -393,7 +397,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_surgeon",
             label: "Surgeon Name",
-            placeholder: "Enter Surgeon name",
+            placeholder: "Surgeon:",
             type: "text",
             x: 520,
             y: 1290,
@@ -403,7 +407,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_asstsurgeon",
             label: "Asst Surgeon Name",
-            placeholder: "Enter Asst Surgeon name",
+            placeholder: "Asst Surgeon:",
             type: "text",
             x: 1500,
             y: 1290,
@@ -412,7 +416,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_anesthesiologist",
             label: "Anesthesiologist Name",
-            placeholder: "Enter Anesthesiologist name",
+            placeholder: "Anesthesiologist:",
             type: "text",
             x: 710,
             y: 1370,
@@ -422,7 +426,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_position_during_surgery",
             label: "Position During Surgery",
-            placeholder: "Enter Position during Surgery",
+            placeholder: "Position during Surgery:",
             type: "text",
             x: 870,
             y: 1450,
@@ -432,7 +436,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_instruments",
             label: "Instruments needed",
-            placeholder: "Enter instruments needed",
+            placeholder: "Instruments needed:",
             type: "text",
             x: 770,
             y: 1540,
