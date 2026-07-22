@@ -19,7 +19,7 @@ const FORMS_CONFIG = {
             x: 315,
             y: 445,
             font: "28px 'RobotoMono', monospace",
-            flex: 3,
+            flex: 2 
           },
           {
             id: "date1",
@@ -41,6 +41,7 @@ const FORMS_CONFIG = {
             y: 545,
             font: "28px 'RobotoMono', monospace",
             flex: 1,
+            newRow: true
           },
           {
             id: "age1",
@@ -90,7 +91,7 @@ const FORMS_CONFIG = {
             x: 2069,
             y: 445,
             font: "28px 'RobotoMono', monospace",
-            flex: 3,
+            flex: 2,
           },
           {
             id: "date2",
@@ -112,6 +113,7 @@ const FORMS_CONFIG = {
             y: 545,
             font: "28px 'RobotoMono', monospace",
             flex: 1,
+            newRow: true
           },
           {
             id: "age2",
