@@ -18,7 +18,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 315,
             y: 445,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 2 
           },
           {
@@ -29,7 +29,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1140,
             y: 445,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
             showNowButton: true,
           },
@@ -40,7 +40,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 320,
             y: 545,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
             newRow: true
           },
@@ -52,7 +52,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 920,
             y: 545,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
           },
           {
@@ -63,7 +63,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1140,
             y: 545,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
           },
           {
@@ -73,7 +73,7 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 185,
             y: 825,
-            font: "34px 'RobotoMono', monospace",
+            font: "34px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 1200,
             lineHeight: 65,
@@ -91,7 +91,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 2069,
             y: 445,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 2,
           },
           {
@@ -102,7 +102,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 2894,
             y: 445,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
             showNowButton: true,
           },
@@ -113,7 +113,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 2074,
             y: 545,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
             newRow: true
           },
@@ -125,7 +125,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 2674,
             y: 545,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
           },
           {
@@ -136,7 +136,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 2894,
             y: 545,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1,
           },
           {
@@ -146,7 +146,7 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 1939,
             y: 825,
-            font: "34px 'RobotoMono', monospace",
+            font: "34px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 1200,
             lineHeight: 65,
@@ -175,7 +175,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 770,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             newRow: true,
             flex: 1,
             showNowButton: true,
@@ -188,7 +188,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1580,
             y: 770,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             flex: 1
           },
           {
@@ -198,7 +198,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 855,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -208,7 +208,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 955,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -218,7 +218,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 1055,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -228,7 +228,7 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 160,
             y: 1180,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 2200,
             lineHeight: 60,
@@ -240,7 +240,7 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 160,
             y: 1490,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 2200,
             lineHeight: 60,
@@ -252,7 +252,7 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 160,
             y: 2650,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 2200,
             lineHeight: 60,
@@ -264,7 +264,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 160,
             y: 3175,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
           },
           {
             id: "idr_hospital_no",
@@ -273,7 +273,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1600,
             y: 3175,
-            font: "48px 'RobotoMono', monospace",
+            font: "48px 'Iosevka', monospace",
           },
         ],
       },
@@ -298,7 +298,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 660,
             y: 720,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 4
           },
           {
@@ -309,7 +309,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1720,
             y: 720,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 2,
             showNowButton: true,
           },
@@ -320,7 +320,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 680,
             y: 800,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true,
             flex: 4
           },
@@ -331,7 +331,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1720,
             y: 800,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1
           },
           {
@@ -341,7 +341,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1940,
             y: 800,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             flex: 1
           },
           {
@@ -351,7 +351,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 700,
             y: 890,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -361,7 +361,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 570,
             y: 975,
-            font: "22px 'RobotoMono', monospace",
+            font: "22px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -371,7 +371,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 790,
             y: 1050,
-            font: "22px 'RobotoMono', monospace",
+            font: "22px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -381,7 +381,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 620,
             y: 1130,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true,
           },
           {
@@ -391,7 +391,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 910,
             y: 1210,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -401,7 +401,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 520,
             y: 1290,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -411,7 +411,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1500,
             y: 1290,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
           },
           {
             id: "orp_anesthesiologist",
@@ -420,7 +420,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 710,
             y: 1370,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -430,7 +430,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 870,
             y: 1450,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -440,7 +440,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 770,
             y: 1540,
-            font: "28px 'RobotoMono', monospace",
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
         ],
