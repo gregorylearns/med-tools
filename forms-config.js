@@ -359,9 +359,9 @@ const FORMS_CONFIG = {
             label: "impression",
             placeholder: "Impression:",
             type: "text",
-            x: 570,
+            x: 560,
             y: 975,
-            font: "22px 'Iosevka', monospace",
+            font: "26px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -369,15 +369,15 @@ const FORMS_CONFIG = {
             label: "Proposed Operation",
             placeholder: "Proposed operation:",
             type: "text",
-            x: 790,
+            x: 770,
             y: 1050,
-            font: "22px 'Iosevka', monospace",
+            font: "26px 'Iosevka', monospace",
             newRow: true
           },
           {
             id: "orp_date_and_time",
             label: "Date and Time of Surgery",
-            placeholder: "EDate and Time of Surgery:",
+            placeholder: "Date and Time of Surgery:",
             type: "text",
             x: 620,
             y: 1130,
