@@ -294,7 +294,7 @@ const FORMS_CONFIG = {
           {
             id: "orp_department",
             label: "department",
-            placeholder: "Department Of: ",
+            placeholder: "Department of: ",
             type: "text",
             x: 660,
             y: 720,
@@ -442,6 +442,25 @@ const FORMS_CONFIG = {
             y: 1540,
             font: "28px 'Iosevka', monospace",
             newRow: true
+          },
+          {
+            id: "orp_dept_head",
+            label: "Department Head",
+            placeholder: "Department Head:",
+            type: "text",
+            x: 300,
+            y: 1950,
+            font: "28px 'Iosevka', monospace",
+            newRow: true
+          },
+          {
+            id: "orp_or_manager",
+            label: "OR Manager",
+            placeholder: "OR Manager:",
+            type: "text",
+            x: 1520,
+            y: 1950,
+            font: "28px 'Iosevka', monospace"
           },
         ],
       },
