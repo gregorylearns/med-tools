@@ -32,6 +32,7 @@ const FORMS_CONFIG = {
             font: "28px 'Iosevka', monospace",
             flex: 1,
             showNowButton: true,
+            nowButtonMode: "date",
           },
           {
             id: "ward1",
@@ -105,6 +106,7 @@ const FORMS_CONFIG = {
             font: "28px 'Iosevka', monospace",
             flex: 1,
             showNowButton: true,
+            nowButtonMode: "date",
           },
           {
             id: "ward2",
@@ -179,6 +181,7 @@ const FORMS_CONFIG = {
             newRow: true,
             flex: 1,
             showNowButton: true,
+            nowButtonMode: "datetime",
           },
           {
             id: "idr_agesex",
@@ -297,7 +300,7 @@ const FORMS_CONFIG = {
             placeholder: "Department of: ",
             type: "text",
             x: 660,
-            y: 720,
+            y: 730,
             font: "28px 'Iosevka', monospace",
             flex: 4
           },
@@ -308,10 +311,11 @@ const FORMS_CONFIG = {
             type: "text",
             class: "small",
             x: 1720,
-            y: 720,
+            y: 730,
             font: "28px 'Iosevka', monospace",
             flex: 2,
             showNowButton: true,
+            nowButtonMode: "date",
           },
           {
             id: "orp_name",
@@ -319,7 +323,7 @@ const FORMS_CONFIG = {
             placeholder: "Name of Patient:",
             type: "text",
             x: 680,
-            y: 800,
+            y: 820,
             font: "28px 'Iosevka', monospace",
             newRow: true,
             flex: 4
@@ -330,7 +334,7 @@ const FORMS_CONFIG = {
             placeholder: "Age:",
             type: "text",
             x: 1720,
-            y: 800,
+            y: 820,
             font: "28px 'Iosevka', monospace",
             flex: 1
           },
@@ -340,7 +344,7 @@ const FORMS_CONFIG = {
             placeholder: "Sex:",
             type: "text",
             x: 1940,
-            y: 800,
+            y: 820,
             font: "28px 'Iosevka', monospace",
             flex: 1
           },
@@ -350,7 +354,7 @@ const FORMS_CONFIG = {
             placeholder: "Floor and Bed Number:",
             type: "text",
             x: 700,
-            y: 890,
+            y: 895,
             font: "28px 'Iosevka', monospace",
             newRow: true
           },
@@ -360,8 +364,12 @@ const FORMS_CONFIG = {
             placeholder: "Impression:",
             type: "text",
             x: 560,
-            y: 975,
-            font: "26px 'Iosevka', monospace",
+            y: 980,
+            font: "28px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1800,
+            lineHeight: 30,
+            anchorBottom: true,
             newRow: true
           },
           {
@@ -370,8 +378,12 @@ const FORMS_CONFIG = {
             placeholder: "Proposed operation:",
             type: "text",
             x: 770,
-            y: 1050,
-            font: "26px 'Iosevka', monospace",
+            y: 1060,
+            font: "28px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1600,
+            lineHeight: 30,
+            anchorBottom: true,
             newRow: true
           },
           {
