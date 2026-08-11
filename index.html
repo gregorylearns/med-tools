@@ -273,7 +273,8 @@
                         nowBtn.textContent = 'Now';
                         nowBtn.type = 'button';
                         nowBtn.className = 'now-btn';
-                        nowBtn.onclick = () => setNow(field.id);
+                        const mode = field.nowButtonMode || 'datetime';
+                        nowBtn.onclick = () => setNow(field.id, mode);
                         currentRow.appendChild(nowBtn);
                     }
                 }
@@ -351,7 +352,10 @@
 
                     const lineHeight = field.lineHeight || 65;
                     lines.forEach((line, index) => {
-                        ctx.fillText(line, field.x, field.y + (index * lineHeight));
+                        const yPos = field.anchorBottom
+                            ? field.y - ((lines.length - 1 - index) * lineHeight)
+                            : field.y + (index * lineHeight);
+                        ctx.fillText(line, field.x, yPos);
                     });
                 } else {
                     ctx.fillText(val, field.x, field.y);
@@ -360,18 +364,26 @@
         });
     }
 
-    function setNow(id) {
+    function setNow(id, mode) {
         const now = new Date();
         const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
         const month = months[now.getMonth()];
         const day = String(now.getDate()).padStart(2, '0');
         const year = now.getFullYear() % 100;
-        let hours = now.getHours();
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        if (hours === 0) hours = 12;
-        const formatted = `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
+
+        let formatted;
+        if (mode === 'date') {
+            formatted = `${month}/${day}/${year}`;
+        } else {
+            // Default: date + time
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            if (hours === 0) hours = 12;
+            formatted = `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
+        }
+
         const input = document.getElementById(id);
         if (input) {
             input.value = formatted;
