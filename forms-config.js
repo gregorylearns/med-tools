@@ -478,4 +478,14 @@ const FORMS_CONFIG = {
       },
     ],
   },
+  orproposal_batch: {
+    name: "Batch OR Proposal Generator (BETA)",
+    template: "orproposal.png",
+    canvasWidth: 2480,
+    canvasHeight: 3508,
+    pdfOrientation: "p",
+    pdfUnit: "pt",
+    pdfFormat: "a4",
+    sections: []
+  },
 };

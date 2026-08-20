@@ -128,6 +128,34 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        #batchInputContainer {
+            margin-top: 20px;
+        }
+        #batchInputContainer h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        #batchInputContainer textarea {
+            width: 100%;
+            height: 500px;
+            font-family: 'Iosevka', monospace;
+            font-size: 14px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        #batchInputContainer textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+        #batchInputContainer p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -157,7 +185,31 @@
         <div id="formFieldsContainer" class="grid">
             <!-- Dynamic fields will be rendered here -->
         </div>
-    <p><i>Tip: press the Tab key after each input field to move to the next field</i></p>
+
+        <div id="batchInputContainer" style="display:none;">
+            <h3>Paste Patient Entries</h3>
+            <p>Enter each patient's details as numbered entries. Separate entries with blank lines.</p>
+            <p><strong>Example:</strong></p>
+            <pre style="font-family:'Iosevka',monospace;font-size:13px;background:#f5f5f5;padding:10px;border-radius:4px;white-space:pre-wrap;">
+1. Name: Juan Dela Cruz
+Age: 45
+Sex: M
+Impression: Fracture of left radius with displacement
+Proposed Operation: Open reduction internal fixation
+
+2. Name: Maria Santos
+Age: 28
+Sex: F
+Impression: Acute appendicitis
+Proposed Operation: Laparoscopic appendectomy
+Surgeon: Dr. Reyes</pre>
+            <textarea id="batchInput" placeholder="Paste patient entries here..."></textarea>
+            <div class="controls">
+                <button id="batchGenerateBtn" onclick="generateBatchPDF()">Generate Batch PDF</button>
+            </div>
+        </div>
+
+    <p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p>
     <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
     <div class="controls">
         <button id="printBtn" onclick="generatePDF()">Print Form</button>
@@ -209,81 +261,104 @@
         const config = FORMS_CONFIG[formKey];
         if (!config) return;
 
-        // Update Title and Button
+        // Update Title
         document.getElementById('formTitle').textContent = config.name + " Generator";
-        document.getElementById('printBtn').textContent = "Print " + config.name;
 
-        // Render Fields
-        const container = document.getElementById('formFieldsContainer');
-        container.innerHTML = '';
+        const isBatch = (formKey === 'orproposal_batch');
 
-        config.sections.forEach((section, sIdx) => {
-            const sectionDiv = document.createElement('div');
-            sectionDiv.className = 'quadrant';
-            
-            const sectionTitle = document.createElement('h3');
-            sectionTitle.textContent = section.title;
-            sectionTitle.style.margin = '0 0 10px 0';
-            sectionTitle.style.fontSize = '16px';
-            sectionTitle.style.color = '#555';
-            sectionDiv.appendChild(sectionTitle);
+        // Toggle batch vs regular form UI
+        const batchContainer = document.getElementById('batchInputContainer');
+        const fieldsContainer = document.getElementById('formFieldsContainer');
+        const printBtn = document.getElementById('printBtn');
+        const tipMsg = document.getElementById('tipMessage');
 
-            // Group fields into rows for better layout
-            let currentRow = null;
+        if (isBatch) {
+            // Show batch input, hide form fields and print button
+            batchContainer.style.display = 'block';
+            fieldsContainer.style.display = 'none';
+            printBtn.style.display = 'none';
+            tipMsg.style.display = 'none';
+        } else {
+            // Show form fields, hide batch input
+            batchContainer.style.display = 'none';
+            fieldsContainer.style.display = 'block';
+            printBtn.style.display = 'inline-block';
+            tipMsg.style.display = 'inline';
+        }
 
-            section.fields.forEach((field) => {
-                if (field.type === 'textarea') {
-                    // Textareas always get their own row/block
-                    const textarea = document.createElement('textarea');
-                    textarea.id = field.id;
-                    textarea.placeholder = field.placeholder;
-                    textarea.oninput = updatePreview;
-                    sectionDiv.appendChild(textarea);
-                    currentRow = null; // Reset row grouping
-                } else {
-                    if (field.newRow) {
-                        currentRow = null;
-                    }
-                    // Text inputs are grouped into meta-rows
-                    if (!currentRow) {
-                        currentRow = document.createElement('div');
-                        currentRow.className = 'meta-row';
-                        sectionDiv.appendChild(currentRow);
-                    }
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.id = field.id;
-                    input.placeholder = field.placeholder;
-                    if (field.class) {
-                        input.className = field.class;
-                    }
-                    if (field.width) {
-                        input.style.width = field.width;
-                        input.style.flex = 'none';
-                    }
-                    if (field.flex) {
-                        input.style.flex = field.flex;
-                    }
-                    input.oninput = updatePreview;
-                    currentRow.appendChild(input);
+        if (!isBatch) {
+            // Render Fields for regular forms
+            const container = document.getElementById('formFieldsContainer');
+            container.innerHTML = '';
 
-                    // If showNowButton is set, add a "Now" button next to the input
-                    if (field.showNowButton) {
-                        const nowBtn = document.createElement('button');
-                        nowBtn.textContent = 'Now';
-                        nowBtn.type = 'button';
-                        nowBtn.className = 'now-btn';
-                        const mode = field.nowButtonMode || 'datetime';
-                        nowBtn.onclick = () => setNow(field.id, mode);
-                        currentRow.appendChild(nowBtn);
+            config.sections.forEach((section, sIdx) => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'quadrant';
+                
+                const sectionTitle = document.createElement('h3');
+                sectionTitle.textContent = section.title;
+                sectionTitle.style.margin = '0 0 10px 0';
+                sectionTitle.style.fontSize = '16px';
+                sectionTitle.style.color = '#555';
+                sectionDiv.appendChild(sectionTitle);
+
+                // Group fields into rows for better layout
+                let currentRow = null;
+
+                section.fields.forEach((field) => {
+                    if (field.type === 'textarea') {
+                        // Textareas always get their own row/block
+                        const textarea = document.createElement('textarea');
+                        textarea.id = field.id;
+                        textarea.placeholder = field.placeholder;
+                        textarea.oninput = updatePreview;
+                        sectionDiv.appendChild(textarea);
+                        currentRow = null; // Reset row grouping
+                    } else {
+                        if (field.newRow) {
+                            currentRow = null;
+                        }
+                        // Text inputs are grouped into meta-rows
+                        if (!currentRow) {
+                            currentRow = document.createElement('div');
+                            currentRow.className = 'meta-row';
+                            sectionDiv.appendChild(currentRow);
+                        }
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.id = field.id;
+                        input.placeholder = field.placeholder;
+                        if (field.class) {
+                            input.className = field.class;
+                        }
+                        if (field.width) {
+                            input.style.width = field.width;
+                            input.style.flex = 'none';
+                        }
+                        if (field.flex) {
+                            input.style.flex = field.flex;
+                        }
+                        input.oninput = updatePreview;
+                        currentRow.appendChild(input);
+
+                        // If showNowButton is set, add a "Now" button next to the input
+                        if (field.showNowButton) {
+                            const nowBtn = document.createElement('button');
+                            nowBtn.textContent = 'Now';
+                            nowBtn.type = 'button';
+                            nowBtn.className = 'now-btn';
+                            const mode = field.nowButtonMode || 'datetime';
+                            nowBtn.onclick = () => setNow(field.id, mode);
+                            currentRow.appendChild(nowBtn);
+                        }
                     }
-                }
+                });
+
+                container.appendChild(sectionDiv);
             });
+        }
 
-            container.appendChild(sectionDiv);
-        });
-
-        // Load template image
+        // Load template image (for both batch and regular forms)
         img.crossOrigin = "Anonymous";
         img.src = config.template;
         img.onload = () => {
@@ -291,6 +366,56 @@
             canvas.height = config.canvasHeight;
             updatePreview();
         };
+    }
+
+    function drawField(ctx, field, value) {
+        if (!value) return;
+        ctx.font = field.font || "28px 'RobotoMono', monospace";
+        ctx.fillStyle = "black";
+        ctx.textBaseline = "top";
+
+        if (field.isMultiline) {
+            const paragraphs = value.split('\n');
+            const lines = [];
+            const maxWidth = field.maxWidth;
+
+            paragraphs.forEach(paragraph => {
+                if (!paragraph) {
+                    lines.push('');
+                    return;
+                }
+
+                const words = paragraph.split(' ');
+                let currentLine = '';
+
+                words.forEach(word => {
+                    const testLine = currentLine ? currentLine + ' ' + word : word;
+                    const metrics = ctx.measureText(testLine);
+                    const testWidth = metrics.width;
+
+                    if (maxWidth && testWidth > maxWidth && currentLine) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = testLine;
+                    }
+                });
+
+                if (currentLine) {
+                    lines.push(currentLine);
+                }
+            });
+
+            const lineHeight = field.lineHeight || 65;
+            lines.forEach((line, index) => {
+                const yPos = field.anchorBottom
+                    ? field.y - ((lines.length - 1 - index) * lineHeight)
+                    : field.y + (index * lineHeight);
+                ctx.fillText(line, field.x, yPos);
+            });
+        } else {
+            ctx.fillText(value, field.x, field.y);
+        }
     }
 
     function updatePreview() {
@@ -307,7 +432,7 @@
         ctx.fillStyle = "black";
         ctx.textBaseline = "top";
 
-        // Draw all fields
+        // Draw all fields using the drawField helper
         config.sections.forEach((section) => {
             section.fields.forEach((field) => {
                 const element = document.getElementById(field.id);
@@ -316,50 +441,7 @@
                 const val = element.value || '';
                 if (!val) return;
 
-                ctx.font = field.font || "28px 'RobotoMono', monospace";
-
-                if (field.isMultiline) {
-                    const paragraphs = val.split('\n');
-                    const lines = [];
-                    const maxWidth = field.maxWidth;
-
-                    paragraphs.forEach(paragraph => {
-                        if (!paragraph) {
-                            lines.push('');
-                            return;
-                        }
-
-                        const words = paragraph.split(' ');
-                        let currentLine = '';
-
-                        words.forEach(word => {
-                            const testLine = currentLine ? currentLine + ' ' + word : word;
-                            const metrics = ctx.measureText(testLine);
-                            const testWidth = metrics.width;
-
-                            if (maxWidth && testWidth > maxWidth && currentLine) {
-                                lines.push(currentLine);
-                                currentLine = word;
-                            } else {
-                                currentLine = testLine;
-                            }
-                        });
-
-                        if (currentLine) {
-                            lines.push(currentLine);
-                        }
-                    });
-
-                    const lineHeight = field.lineHeight || 65;
-                    lines.forEach((line, index) => {
-                        const yPos = field.anchorBottom
-                            ? field.y - ((lines.length - 1 - index) * lineHeight)
-                            : field.y + (index * lineHeight);
-                        ctx.fillText(line, field.x, yPos);
-                    });
-                } else {
-                    ctx.fillText(val, field.x, field.y);
-                }
+                drawField(ctx, field, val);
             });
         });
     }
@@ -418,6 +500,183 @@
                 alert("Could not generate PDF. Error: " + error.message);
             }
         }, 100);
+    }
+
+    // ===== Batch OR Proposal Generator =====
+
+    // Map input labels (lowercased) to OR Proposal config field IDs.
+    // Matching is case-insensitive and uses "starts with / contains" logic.
+    // NOTE: Order matters — more specific keywords must come before generic ones
+    // (e.g. "date and time of surgery" before "date").
+    const BATCH_LABEL_MAP = [
+        { fieldId: "orp_date_and_time", keywords: ["date and time of surgery", "surgery date"] },
+        { fieldId: "orp_est_time_surgery", keywords: ["estimated time", "est time", "est. time"] },
+        { fieldId: "orp_proposed_operation", keywords: ["proposed operation", "operation", "surgery"] },
+        { fieldId: "orp_department", keywords: ["department", "dept"] },
+        { fieldId: "orp_date", keywords: ["date"] },
+        { fieldId: "orp_name", keywords: ["name", "patient"] },
+        { fieldId: "orp_age", keywords: ["age"] },
+        { fieldId: "orp_sex", keywords: ["sex", "gender"] },
+        { fieldId: "orp_floor_bed", keywords: ["floor", "bed"] },
+        { fieldId: "orp_impression", keywords: ["impression", "diagnosis"] },
+        { fieldId: "orp_surgeon", keywords: ["surgeon"] },
+        { fieldId: "orp_asstsurgeon", keywords: ["asst surgeon", "assistant surgeon"] },
+        { fieldId: "orp_anesthesiologist", keywords: ["anesthesiologist", "anesthesia"] },
+        { fieldId: "orp_position_during_surgery", keywords: ["position"] },
+        { fieldId: "orp_instruments", keywords: ["instruments", "instrument"] },
+        { fieldId: "orp_dept_head", keywords: ["department head", "dept head"] },
+        { fieldId: "orp_or_manager", keywords: ["or manager", "manager"] },
+    ];
+
+    // Build a lookup of fieldId -> config field definition (from OR Proposal config)
+    function getOrpFieldMap() {
+        const orpConfig = FORMS_CONFIG['orproposal'];
+        const map = {};
+        if (!orpConfig) return map;
+        orpConfig.sections.forEach(section => {
+            section.fields.forEach(field => {
+                map[field.id] = field;
+            });
+        });
+        return map;
+    }
+
+    // Map a single input label (lowercased, trimmed) to a config field ID, or null
+    function mapLabelToFieldId(label) {
+        const lower = label.toLowerCase().trim();
+        for (const entry of BATCH_LABEL_MAP) {
+            for (const keyword of entry.keywords) {
+                if (lower.startsWith(keyword) || lower.includes(keyword)) {
+                    return entry.fieldId;
+                }
+            }
+        }
+        return null;
+    }
+
+    function parseBatchInput(text) {
+        const records = [];
+        if (!text || !text.trim()) return records;
+
+        const lines = text.split(/\r?\n/);
+        let currentRecord = null;
+
+        lines.forEach(line => {
+            // Detect entry start: "1." or "1. " at the beginning
+            const isEntryStart = /^\s*\d+[.)]?\s/.test(line);
+
+            if (isEntryStart) {
+                // Save previous record
+                if (currentRecord && Object.keys(currentRecord).length > 0) {
+                    records.push(currentRecord);
+                }
+                currentRecord = {};
+                // Parse the first field on the same line as the number
+                const rest = line.replace(/^\s*\d+[.)]?\s*/, '');
+                if (rest) {
+                    parseFieldLine(rest, currentRecord);
+                }
+            } else if (currentRecord) {
+                // Continuation line - try to parse as field:value
+                if (line.trim()) {
+                    parseFieldLine(line, currentRecord);
+                }
+            }
+        });
+
+        // Push the last record
+        if (currentRecord && Object.keys(currentRecord).length > 0) {
+            records.push(currentRecord);
+        }
+
+        return records;
+    }
+
+    function parseFieldLine(line, record) {
+        const idx = line.indexOf(':');
+        if (idx === -1) return;
+        const label = line.substring(0, idx).trim();
+        const value = line.substring(idx + 1).trim();
+        if (!label || !value) return;
+
+        const fieldId = mapLabelToFieldId(label);
+        if (fieldId) {
+            record[fieldId] = value;
+        }
+    }
+
+    function generateBatchPDF() {
+        const textarea = document.getElementById('batchInput');
+        const text = textarea ? textarea.value : '';
+
+        if (!text.trim()) {
+            alert("Please paste patient entries first.");
+            return;
+        }
+
+        const records = parseBatchInput(text);
+        if (records.length === 0) {
+            alert("No valid patient entries found. Please check your input format.");
+            return;
+        }
+
+        const config = FORMS_CONFIG['orproposal_batch'];
+        const orpConfig = FORMS_CONFIG['orproposal'];
+        if (!config || !orpConfig) {
+            alert("Configuration error: OR Proposal config not found.");
+            return;
+        }
+
+        const fieldMap = getOrpFieldMap();
+
+        // Ensure template image is loaded
+        const loadImage = (src) => {
+            return new Promise((resolve, reject) => {
+                const image = new Image();
+                image.crossOrigin = "Anonymous";
+                image.onload = () => resolve(image);
+                image.onerror = reject;
+                image.src = src;
+            });
+        };
+
+        loadImage(config.template).then((templateImg) => {
+            // Create a temporary canvas for batch rendering
+            const batchCanvas = document.createElement('canvas');
+            batchCanvas.width = config.canvasWidth;
+            batchCanvas.height = config.canvasHeight;
+            const bctx = batchCanvas.getContext('2d');
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF(config.pdfOrientation || 'p', config.pdfUnit || 'pt', config.pdfFormat || 'a4');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+
+            records.forEach((record, index) => {
+                // Draw template
+                bctx.clearRect(0, 0, batchCanvas.width, batchCanvas.height);
+                bctx.drawImage(templateImg, 0, 0, batchCanvas.width, batchCanvas.height);
+
+                // Draw each field present in the record
+                for (const fieldId in record) {
+                    const field = fieldMap[fieldId];
+                    if (!field) continue;
+                    drawField(bctx, field, record[fieldId]);
+                }
+
+                // Capture to PDF
+                const imgData = batchCanvas.toDataURL('image/jpeg', 0.95);
+                if (index > 0) pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+            });
+
+            const pdfBlob = pdf.output('blob');
+            const blobUrl = URL.createObjectURL(pdfBlob);
+            window.open(blobUrl, '_blank');
+        }).catch((error) => {
+            console.error("Batch PDF Generation Error:", error);
+            alert("Could not load template image. Error: " + error.message);
+        });
     }
 </script>
 </body>
