@@ -188,14 +188,20 @@
 
         <div id="batchInputContainer" style="display:none;">
             <h3>Paste Patient Entries</h3>
-            <p>Enter each patient's details as numbered entries. Separate entries with blank lines.</p>
+            <p>You can optionally declare global variables (e.g. <code>Department</code>, <code>Date</code>, <code>Department Head</code>, <code>Instruments Needed</code>) at the very top. Then enter each patient's details as numbered entries separated by blank lines.</p>
             <p><strong>Example:</strong></p>
             <pre style="font-family:'Iosevka',monospace;font-size:13px;background:#f5f5f5;padding:10px;border-radius:4px;white-space:pre-wrap;">
+Department: Surgery
+Date: 08/20/2026
+Department Head: Dr. A. Santos
+Instruments Needed: Major Laparotomy Set
+
 1. Name: Juan Dela Cruz
 Age: 45
 Sex: M
 Impression: Fracture of left radius with displacement
 Proposed Operation: Open reduction internal fixation
+Surgeon: Dr. Reyes
 
 2. Name: Maria Santos
 Age: 28
@@ -506,25 +512,24 @@ Surgeon: Dr. Reyes</pre>
 
     // Map input labels (lowercased) to OR Proposal config field IDs.
     // Matching is case-insensitive and uses "starts with / contains" logic.
-    // NOTE: Order matters — more specific keywords must come before generic ones
-    // (e.g. "date and time of surgery" before "date").
+    // More specific / multi-word keywords are ordered first to avoid partial substring clashes
     const BATCH_LABEL_MAP = [
-        { fieldId: "orp_date_and_time", keywords: ["date and time of surgery", "surgery date"] },
-        { fieldId: "orp_est_time_surgery", keywords: ["estimated time", "est time", "est. time"] },
-        { fieldId: "orp_proposed_operation", keywords: ["proposed operation", "operation", "surgery"] },
+        { fieldId: "orp_dept_head", keywords: ["department head", "dept head", "department-head", "dept-head", "head"] },
         { fieldId: "orp_department", keywords: ["department", "dept"] },
+        { fieldId: "orp_asstsurgeon", keywords: ["asst surgeon", "assistant surgeon", "asst-surgeon", "assistant-surgeon", "asst."] },
+        { fieldId: "orp_surgeon", keywords: ["surgeon"] },
+        { fieldId: "orp_date_and_time", keywords: ["date and time of surgery", "date and time", "surgery date", "surgery-date", "date & time"] },
+        { fieldId: "orp_est_time_surgery", keywords: ["estimated time of surgery", "estimated time", "est time", "est. time"] },
         { fieldId: "orp_date", keywords: ["date"] },
-        { fieldId: "orp_name", keywords: ["name", "patient"] },
+        { fieldId: "orp_name", keywords: ["name", "patient name", "patient"] },
         { fieldId: "orp_age", keywords: ["age"] },
         { fieldId: "orp_sex", keywords: ["sex", "gender"] },
-        { fieldId: "orp_floor_bed", keywords: ["floor", "bed"] },
+        { fieldId: "orp_floor_bed", keywords: ["floor/bed", "floor and bed", "floor", "bed", "ward"] },
+        { fieldId: "orp_proposed_operation", keywords: ["proposed operation", "operation", "surgery", "procedure"] },
         { fieldId: "orp_impression", keywords: ["impression", "diagnosis"] },
-        { fieldId: "orp_surgeon", keywords: ["surgeon"] },
-        { fieldId: "orp_asstsurgeon", keywords: ["asst surgeon", "assistant surgeon"] },
-        { fieldId: "orp_anesthesiologist", keywords: ["anesthesiologist", "anesthesia"] },
-        { fieldId: "orp_position_during_surgery", keywords: ["position"] },
-        { fieldId: "orp_instruments", keywords: ["instruments", "instrument"] },
-        { fieldId: "orp_dept_head", keywords: ["department head", "dept head"] },
+        { fieldId: "orp_anesthesiologist", keywords: ["anesthesiologist", "anesthesia", "anesth"] },
+        { fieldId: "orp_position_during_surgery", keywords: ["position during surgery", "position"] },
+        { fieldId: "orp_instruments", keywords: ["instruments needed", "instruments", "instrument", "materials needed", "materials"] },
         { fieldId: "orp_or_manager", keywords: ["or manager", "manager"] },
     ];
 
@@ -559,16 +564,17 @@ Surgeon: Dr. Reyes</pre>
         if (!text || !text.trim()) return records;
 
         const lines = text.split(/\r?\n/);
+        const globalRecord = {};
         let currentRecord = null;
 
         lines.forEach(line => {
-            // Detect entry start: "1." or "1. " at the beginning
+            // Detect entry start: "1." or "1) " or "1. " at the beginning
             const isEntryStart = /^\s*\d+[.)]?\s/.test(line);
 
             if (isEntryStart) {
-                // Save previous record
+                // Save previous record with global fallbacks
                 if (currentRecord && Object.keys(currentRecord).length > 0) {
-                    records.push(currentRecord);
+                    records.push(Object.assign({}, globalRecord, currentRecord));
                 }
                 currentRecord = {};
                 // Parse the first field on the same line as the number
@@ -577,16 +583,21 @@ Surgeon: Dr. Reyes</pre>
                     parseFieldLine(rest, currentRecord);
                 }
             } else if (currentRecord) {
-                // Continuation line - try to parse as field:value
+                // Continuation line for current patient
                 if (line.trim()) {
                     parseFieldLine(line, currentRecord);
+                }
+            } else {
+                // Lines before the first numbered entry are treated as global header variables
+                if (line.trim()) {
+                    parseFieldLine(line, globalRecord);
                 }
             }
         });
 
-        // Push the last record
+        // Push the last record with global fallbacks
         if (currentRecord && Object.keys(currentRecord).length > 0) {
-            records.push(currentRecord);
+            records.push(Object.assign({}, globalRecord, currentRecord));
         }
 
         return records;

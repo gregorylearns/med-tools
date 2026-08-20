@@ -8,14 +8,22 @@ Add a new "Batch OR Proposal Generator" to the existing Forms Generator app that
 
 ## 1. Input Format
 
-Each patient entry is numbered (`1.`, `2.`, `3.`), with `Label: Value` lines per field. Entries separated by blank lines.
+Users can optionally declare **global variables** (such as `Department`, `Date`, `Department Head`, `Instruments Needed`) at the top of the input before the first patient entry. These global values are automatically applied as defaults to all patient entries in the batch, unless overridden within an individual patient's entry.
+
+Each patient entry is numbered (`1.`, `2.`, `3.`), with `Label: Value` lines per field. Entries are separated by blank lines.
 
 ```
+Department: Surgery
+Date: 08/20/2026
+Department Head: Dr. A. Santos
+Instruments Needed: Major Laparotomy Set
+
 1. Name: Juan Dela Cruz
 Age: 45
 Sex: M
 Impression: Fracture of left radius with displacement
 Proposed Operation: Open reduction internal fixation
+Surgeon: Dr. Reyes
 
 2. Name: Maria Santos
 Age: 28
@@ -25,10 +33,11 @@ Proposed Operation: Laparoscopic appendectomy
 Surgeon: Dr. Reyes
 ```
 
-- Fields are **case-insensitive** during label matching
-- Only fields that appear in an entry are rendered (if `Age` is omitted, it's skipped)
-- Blank lines separate entries
-- Entry numbering is parsed but not required for field mapping
+- **Global Variables**: Defined at the top before any numbered entry; applied to all records as defaults.
+- **Per-entry Overrides**: Any field specified inside a patient entry overrides the global default for that specific patient.
+- **Flexible Matching**: Fields are **case-insensitive** during label matching.
+- Only fields that are present (either globally or per-patient) are rendered.
+- Blank lines separate entries.
 
 ---
 
@@ -38,22 +47,22 @@ Parser maps input labels to OR Proposal field IDs using flexible matching:
 
 | Input Label | Config Field ID |
 |---|---|
+| `Department Head`, `Dept Head`, `Head` | `orp_dept_head` |
 | `Department`, `Dept` | `orp_department` |
+| `Asst Surgeon`, `Assistant Surgeon`, `Asst.` | `orp_asstsurgeon` |
+| `Surgeon` | `orp_surgeon` |
+| `Date and Time of Surgery`, `Date and Time`, `Surgery Date`, `Date & Time` | `orp_date_and_time` |
+| `Estimated Time of Surgery`, `Estimated Time`, `Est Time` | `orp_est_time_surgery` |
 | `Date` | `orp_date` |
-| `Name`, `Patient`, `Patient Name` | `orp_name` |
+| `Name`, `Patient Name`, `Patient` | `orp_name` |
 | `Age` | `orp_age` |
 | `Sex`, `Gender` | `orp_sex` |
-| `Floor`, `Bed`, `Floor/Bed`, `Floor and Bed` | `orp_floor_bed` |
+| `Floor/Bed`, `Floor and Bed`, `Floor`, `Bed`, `Ward` | `orp_floor_bed` |
+| `Proposed Operation`, `Operation`, `Surgery`, `Procedure` | `orp_proposed_operation` |
 | `Impression`, `Diagnosis` | `orp_impression` |
-| `Proposed Operation`, `Operation`, `Surgery` | `orp_proposed_operation` |
-| `Date and Time of Surgery`, `Surgery Date` | `orp_date_and_time` |
-| `Estimated Time`, `Est Time`, `Est. Time of Surgery` | `orp_est_time_surgery` |
-| `Surgeon` | `orp_surgeon` |
-| `Asst Surgeon`, `Assistant Surgeon` | `orp_asstsurgeon` |
-| `Anesthesiologist`, `Anesthesia` | `orp_anesthesiologist` |
-| `Position`, `Position during Surgery` | `orp_position_during_surgery` |
-| `Instruments`, `Instrument` | `orp_instruments` |
-| `Department Head`, `Dept Head` | `orp_dept_head` |
+| `Anesthesiologist`, `Anesthesia`, `Anesth` | `orp_anesthesiologist` |
+| `Position during Surgery`, `Position` | `orp_position_during_surgery` |
+| `Instruments Needed`, `Instruments`, `Materials Needed` | `orp_instruments` |
 | `OR Manager`, `Manager` | `orp_or_manager` |
 
 Each input label is matched by checking if the label text (lowercased, trimmed) **starts with or contains** any of the trigger words. This allows flexible input like `Surgeon: Dr. Reyes` or `Asst Surgeon: Dr. Tan`.
