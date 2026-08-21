@@ -41,6 +41,7 @@
         <div id="batchInputContainer" style="display:none;">
             <h3>Paste Patient Entries</h3>
             <p>You can optionally declare global variables (e.g. <code>Department</code>, <code>Date</code>, <code>Department Head</code>, <code>Instruments Needed</code>) at the very top. Then enter each patient's details as numbered entries separated by blank lines.</p>
+            <p>Bug: Live Preview does not work on Batch OR PROPOSAL MAKER</p>
             <p><strong>Example:</strong></p>
             <pre style="font-family:'Iosevka',monospace;font-size:13px;background:#f5f5f5;padding:10px;border-radius:4px;white-space:pre-wrap;">
 Department: SURGERY
@@ -84,14 +85,13 @@ Position: SUPINE</pre>
     <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
     <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me as sideline if naa mo ipa automate xD)</i></p>
     <div class="controls">
-        <button id="printBtn" onclick="generatePDF()">Print Form</button>
+        <button id="printBtn" onclick="generatePDF()">Generate PDF</button>
     </div>
     <div class="preview-label">Live Preview</div>
     <!-- Canvas for Live Preview and Processing -->
     <canvas id="pdfCanvas"></canvas>
     <p><i>For more info contact g. abrasaldo</i></p>
-
-    <p><i>For any suggestions/improvements please feel free to submit a pull request</i></p>
+    <p><i>For any bug reports/suggestions/improvements please feel free to submit a pull request</i></p>
     <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
     <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
     </div> <!-- closes .container -->
