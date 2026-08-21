@@ -14,7 +14,7 @@
 
     
 <div id="loginScreen" style="text-align:center; margin-top:100px;">
-    <h2>Prescription Pad Generator</h2>
+    <h2>Forms Generator</h2>
     <p>Enter access code:</p>
 
     <input type="password" id="pw">
@@ -43,24 +43,37 @@
             <p>You can optionally declare global variables (e.g. <code>Department</code>, <code>Date</code>, <code>Department Head</code>, <code>Instruments Needed</code>) at the very top. Then enter each patient's details as numbered entries separated by blank lines.</p>
             <p><strong>Example:</strong></p>
             <pre style="font-family:'Iosevka',monospace;font-size:13px;background:#f5f5f5;padding:10px;border-radius:4px;white-space:pre-wrap;">
-Department: Surgery
+Department: SURGERY
 Date: 08/20/2026
-Department Head: Dr. A. Santos
-Instruments Needed: Major Laparotomy Set
+Department-Head: DR. SOMEONE
+Instruments: MAJOR LAPAROTOMY SET
 
 1. Name: Juan Dela Cruz
 Age: 45
 Sex: M
-Impression: Fracture of left radius with displacement
-Proposed Operation: Open reduction internal fixation
-Surgeon: Dr. Reyes
+Impression: ACUTE UNCOMPLICATED APPENDICITIS
+Proposed Operation: LAPAROTOMY APPENDECTOMY
+Surgeon: DR. IBONALO, LEO MARC
+Asst-surgeon: DR. CARREON, ARBIE JOHN
+Anes: AROD
+Surgery-date: 08/21/2026
+Est-time: 1 HOUR
+Floor: SP3
+Position: SUPINE
 
-2. Name: Maria Santos
+
+2. Name: DALISAY CARDITA
 Age: 28
 Sex: F
-Impression: Acute appendicitis
-Proposed Operation: Laparoscopic appendectomy
-Surgeon: Dr. Reyes</pre>
+Impression: CHOLELITHIASIS
+Proposed Operation: LAPAROSCOPIC CHOLECYSTECTOMY, POSSIBLE OPEN
+Surgeon: DR. PAJANTOY, A LIESON
+Asst-surgeon: DR. JOSOL, ICE
+Anes: AROD
+Surgery-date: 08/21/2026
+Est-time: 1 HOUR
+Floor: SP3
+Position: SUPINE</pre>
             <textarea id="batchInput" placeholder="Paste patient entries here..."></textarea>
             <div class="controls">
                 <button id="batchGenerateBtn" onclick="generateBatchPDF()">Generate Batch PDF</button>
@@ -69,6 +82,7 @@ Surgeon: Dr. Reyes</pre>
 
     <p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p>
     <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
+    <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me as sideline if naa mo ipa automate xD)</i></p>
     <div class="controls">
         <button id="printBtn" onclick="generatePDF()">Print Form</button>
     </div>
@@ -76,6 +90,7 @@ Surgeon: Dr. Reyes</pre>
     <!-- Canvas for Live Preview and Processing -->
     <canvas id="pdfCanvas"></canvas>
     <p><i>For more info contact g. abrasaldo</i></p>
+
     <p><i>For any suggestions/improvements please feel free to submit a pull request</i></p>
     <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
     <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
@@ -366,12 +381,12 @@ Surgeon: Dr. Reyes</pre>
     // Matching is case-insensitive and uses "starts with / contains" logic.
     // More specific / multi-word keywords are ordered first to avoid partial substring clashes
     const BATCH_LABEL_MAP = [
-        { fieldId: "orp_dept_head", keywords: ["department head", "dept head", "department-head", "dept-head", "head"] },
+        { fieldId: "orp_dept_head", keywords: ["department-head", "dept-head"] },
         { fieldId: "orp_department", keywords: ["department", "dept"] },
-        { fieldId: "orp_asstsurgeon", keywords: ["asst surgeon", "assistant surgeon", "asst-surgeon", "assistant-surgeon", "asst."] },
+        { fieldId: "orp_asstsurgeon", keywords: ["asst-surgeon"] },
         { fieldId: "orp_surgeon", keywords: ["surgeon"] },
-        { fieldId: "orp_date_and_time", keywords: ["date and time of surgery", "date and time", "surgery date", "surgery-date", "date & time"] },
-        { fieldId: "orp_est_time_surgery", keywords: ["estimated time of surgery", "estimated time", "est time", "est. time"] },
+        { fieldId: "orp_date_and_time", keywords: ["surgery-date"] },
+        { fieldId: "orp_est_time_surgery", keywords: [ "est-time"] },
         { fieldId: "orp_date", keywords: ["date"] },
         { fieldId: "orp_name", keywords: ["name", "patient name", "patient"] },
         { fieldId: "orp_age", keywords: ["age"] },
@@ -379,7 +394,7 @@ Surgeon: Dr. Reyes</pre>
         { fieldId: "orp_floor_bed", keywords: ["floor/bed", "floor and bed", "floor", "bed", "ward"] },
         { fieldId: "orp_proposed_operation", keywords: ["proposed operation", "operation", "surgery", "procedure"] },
         { fieldId: "orp_impression", keywords: ["impression", "diagnosis"] },
-        { fieldId: "orp_anesthesiologist", keywords: ["anesthesiologist", "anesthesia", "anesth"] },
+        { fieldId: "orp_anesthesiologist", keywords: ["anesthesiologist", "anes", "anesth"] },
         { fieldId: "orp_position_during_surgery", keywords: ["position during surgery", "position"] },
         { fieldId: "orp_instruments", keywords: ["instruments needed", "instruments", "instrument", "materials needed", "materials"] },
         { fieldId: "orp_or_manager", keywords: ["or manager", "manager"] },

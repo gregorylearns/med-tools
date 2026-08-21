@@ -301,7 +301,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 660,
             y: 730,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             flex: 4
           },
           {
@@ -312,7 +312,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1720,
             y: 730,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             flex: 2,
             showNowButton: true,
             nowButtonMode: "date",
@@ -323,8 +323,8 @@ const FORMS_CONFIG = {
             placeholder: "Name of Patient:",
             type: "text",
             x: 680,
-            y: 820,
-            font: "28px 'Iosevka', monospace",
+            y: 810,
+            font: "36px 'Iosevka', monospace",
             newRow: true,
             flex: 4
           },
@@ -334,8 +334,8 @@ const FORMS_CONFIG = {
             placeholder: "Age:",
             type: "text",
             x: 1720,
-            y: 820,
-            font: "28px 'Iosevka', monospace",
+            y: 810,
+            font: "36px 'Iosevka', monospace",
             flex: 1
           },
           {
@@ -344,8 +344,8 @@ const FORMS_CONFIG = {
             placeholder: "Sex:",
             type: "text",
             x: 1940,
-            y: 820,
-            font: "28px 'Iosevka', monospace",
+            y: 810,
+            font: "36px 'Iosevka', monospace",
             flex: 1
           },
           {
@@ -355,7 +355,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 700,
             y: 895,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -368,7 +368,7 @@ const FORMS_CONFIG = {
             font: "28px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 1800,
-            lineHeight: 30,
+            lineHeight: 28,
             anchorBottom: true,
             newRow: true
           },
@@ -382,7 +382,7 @@ const FORMS_CONFIG = {
             font: "28px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 1600,
-            lineHeight: 30,
+            lineHeight: 28,
             anchorBottom: true,
             newRow: true
           },
@@ -393,7 +393,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 620,
             y: 1130,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true,
           },
           {
@@ -403,7 +403,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 910,
             y: 1210,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -413,7 +413,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 520,
             y: 1290,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -423,7 +423,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1500,
             y: 1290,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
           },
           {
             id: "orp_anesthesiologist",
@@ -432,7 +432,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 710,
             y: 1370,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -442,7 +442,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 870,
             y: 1450,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -452,7 +452,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 770,
             y: 1540,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -462,7 +462,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 300,
             y: 1950,
-            font: "28px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -472,7 +472,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1520,
             y: 1950,
-            font: "28px 'Iosevka', monospace"
+            font: "36px 'Iosevka', monospace"
           },
         ],
       },
