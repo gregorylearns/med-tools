@@ -19,7 +19,7 @@ const FORMS_CONFIG = {
             x: 315,
             y: 445,
             font: "28px 'Iosevka', monospace",
-            flex: 2 
+            flex: 2
           },
           {
             id: "date1",
@@ -73,11 +73,11 @@ const FORMS_CONFIG = {
             placeholder: "Prescription (Left)",
             type: "textarea",
             x: 185,
-            y: 825,
-            font: "34px 'Iosevka', monospace",
+            y: 800,
+            font: "36px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 1200,
-            lineHeight: 65,
+            lineHeight: 36,
             flex: 1,
           },
         ],
@@ -147,11 +147,11 @@ const FORMS_CONFIG = {
             placeholder: "Prescription (Right)",
             type: "textarea",
             x: 1939,
-            y: 825,
-            font: "34px 'Iosevka', monospace",
+            y: 800,
+            font: "36px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 1200,
-            lineHeight: 65,
+            lineHeight: 36,
             flex: 1,
           },
         ],
@@ -177,7 +177,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 770,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true,
             flex: 1,
             showNowButton: true,
@@ -191,7 +191,7 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1580,
             y: 770,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             flex: 1
           },
           {
@@ -201,7 +201,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 855,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -211,7 +211,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 955,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -221,7 +221,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 615,
             y: 1055,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -231,10 +231,10 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 160,
             y: 1180,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 2200,
-            lineHeight: 60,
+            lineHeight: 36,
           },
           {
             id: "idr_pertinent_history_pe",
@@ -243,10 +243,10 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 160,
             y: 1490,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 2200,
-            lineHeight: 60,
+            lineHeight: 36,
           },
           {
             id: "idr_assessment",
@@ -255,10 +255,10 @@ const FORMS_CONFIG = {
             type: "textarea",
             x: 160,
             y: 2650,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
             isMultiline: true,
             maxWidth: 2200,
-            lineHeight: 60,
+            lineHeight: 36,
           },
           {
             id: "idr_name",
@@ -267,7 +267,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 160,
             y: 3175,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
           },
           {
             id: "idr_hospital_no",
@@ -276,7 +276,7 @@ const FORMS_CONFIG = {
             type: "text",
             x: 1600,
             y: 3175,
-            font: "48px 'Iosevka', monospace",
+            font: "36px 'Iosevka', monospace",
           },
         ],
       },
