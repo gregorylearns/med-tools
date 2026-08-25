@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Wrap Tool</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; color: #333; }
+        .settings {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .settings label {
+            font-weight: bold;
+            font-size: 15px;
+            color: #555;
+        }
+        .settings input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+            text-align: center;
+        }
+        .panes {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .pane label {
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
+        .pane textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            line-height: 1.5;
+        }
+        .pane textarea[readonly] {
+            background-color: #f9f9f9;
+        }
+        .controls {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #0056b3; }
+        #copyFeedback {
+            color: #28a745;
+            font-weight: bold;
+            min-height: 20px;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        @media (max-width: 700px) {
+            .panes {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Line Wrap Tool</h1>
+        <p style="text-align:center; color:#666;">Type or paste text below. Each line is re-wrapped so no line exceeds the character limit.</p>
+
+        <div class="settings">
+            <label for="limitInput">Max characters per line:</label>
+            <input type="number" id="limitInput" value="36" min="1" step="1">
+        </div>
+
+        <div class="panes">
+            <div class="pane">
+                <label for="inputText">Input</label>
+                <textarea id="inputText" placeholder="Paste your text here..."></textarea>
+            </div>
+            <div class="pane">
+                <label for="outputText">Output</label>
+                <textarea id="outputText" readonly placeholder="Wrapped result appears here..."></textarea>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="copyBtn">Copy to Clipboard</button>
+            <div id="copyFeedback"></div>
+        </div>
+
+        <a class="back-link" href="index.html">&larr; Back to Forms</a>
+    </div>
+
+    <script>
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const limitInput = document.getElementById('limitInput');
+        const copyBtn = document.getElementById('copyBtn');
+        const copyFeedback = document.getElementById('copyFeedback');
+
+        function wrapText(text, limit) {
+            if (!text) return '';
+            const result = [];
+            const paragraphs = text.split('\n');
+
+            paragraphs.forEach(paragraph => {
+                const words = paragraph.split(' ');
+                let currentLine = '';
+
+                words.forEach(word => {
+                    const candidate = currentLine ? currentLine + ' ' + word : word;
+                    if (candidate.length > limit && currentLine) {
+                        result.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = candidate;
+                    }
+                });
+
+                result.push(currentLine);
+            });
+
+            return result.join('\n');
+        }
+
+        function updateOutput() {
+            const limit = parseInt(limitInput.value, 10) || 36;
+            outputText.value = wrapText(inputText.value, limit);
+        }
+
+        inputText.addEventListener('input', updateOutput);
+        limitInput.addEventListener('input', updateOutput);
+        limitInput.addEventListener('change', updateOutput);
+
+        function copyOutput() {
+            const text = outputText.value;
+            if (!text) {
+                copyFeedback.textContent = 'Nothing to copy.';
+                setTimeout(() => { copyFeedback.textContent = ''; }, 1500);
+                return;
+            }
+
+            const done = () => {
+                copyFeedback.textContent = 'Copied!';
+                setTimeout(() => { copyFeedback.textContent = ''; }, 1500);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done).catch(() => {
+                    fallbackCopy(text, done);
+                });
+            } else {
+                fallbackCopy(text, done);
+            }
+        }
+
+        function fallbackCopy(text, done) {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            temp.style.position = 'fixed';
+            temp.style.opacity = '0';
+            document.body.appendChild(temp);
+            temp.select();
+            try {
+                document.execCommand('copy');
+            } catch (e) {
+                copyFeedback.textContent = 'Copy failed.';
+            }
+            document.body.removeChild(temp);
+            done();
+        }
+
+        copyBtn.addEventListener('click', copyOutput);
+
+        // Initialize output on page load
+        updateOutput();
+    </script>
+</body>
+</html>
