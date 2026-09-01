@@ -234,7 +234,9 @@ Position: SUPINE</pre>
 
         // Load template image (for both batch and regular forms)
         img.crossOrigin = "Anonymous";
-        img.src = config.template;
+        // Multi-page forms (e.g. radio_combined) store the preview template in
+        // pages[0].template; fall back to it when there is no top-level template.
+        img.src = config.template || (config.pages && config.pages[0] && config.pages[0].template);
         img.onload = () => {
             canvas.width = config.canvasWidth;
             canvas.height = config.canvasHeight;
@@ -356,19 +358,89 @@ Position: SUPINE</pre>
             try {
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF(config.pdfOrientation || 'l', config.pdfUnit || 'pt', config.pdfFormat || 'a4');
-                
-                // Get canvas data
-                const imgData = canvas.toDataURL('image/jpeg', 0.95);
-                
+
                 // Get page dimensions
                 const pageWidth = pdf.internal.pageSize.getWidth();
                 const pageHeight = pdf.internal.pageSize.getHeight();
-                
-                // Add image to fit page
-                pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
-                const pdfBlob = pdf.output('blob');
-                const blobUrl = URL.createObjectURL(pdfBlob);
-                window.open(blobUrl, '_blank');
+
+                // Helper: load an image and resolve with it once ready.
+                // Resolves with `null` (instead of rejecting) if the image is
+                // missing, so a not-yet-provided template (e.g. a future page 3)
+                // does not abort the whole PDF — that page is simply skipped.
+                const loadImage = (src) => {
+                    return new Promise((resolve) => {
+                        const image = new Image();
+                        image.crossOrigin = "Anonymous";
+                        image.onload = () => resolve(image);
+                        image.onerror = () => {
+                            console.warn("Template image not found, skipping page: " + src);
+                            resolve(null);
+                        };
+                        image.src = src;
+                    });
+                };
+
+                // Helper: render a single page (template + fields) to a JPEG data URL
+                const renderPage = (templateImg, pageFields) => {
+                    const pageCanvas = document.createElement('canvas');
+                    pageCanvas.width = config.canvasWidth;
+                    pageCanvas.height = config.canvasHeight;
+                    const pctx = pageCanvas.getContext('2d');
+
+                    // Draw template
+                    pctx.clearRect(0, 0, pageCanvas.width, pageCanvas.height);
+                    pctx.drawImage(templateImg, 0, 0, pageCanvas.width, pageCanvas.height);
+
+                    // Draw fields using their per-page coordinates
+                    pctx.fillStyle = "black";
+                    pctx.textBaseline = "top";
+                    pageFields.forEach((field) => {
+                        const element = document.getElementById(field.id);
+                        if (!element) return;
+                        const val = element.value || '';
+                        if (!val) return;
+                        drawField(pctx, field, val);
+                    });
+
+                    return pageCanvas.toDataURL('image/jpeg', 0.95);
+                };
+
+                if (config.pages && config.pages.length > 0) {
+                    // Multi-page form: render each page with its own template + coordinates.
+                    // Pages whose template fails to load are skipped (see loadImage above).
+                    const pagePromises = config.pages.map(page => loadImage(page.template));
+                    Promise.all(pagePromises).then((templateImgs) => {
+                        let firstPageAdded = false;
+                        config.pages.forEach((page, index) => {
+                            const templateImg = templateImgs[index];
+                            if (!templateImg) return; // skip missing template
+
+                            const imgData = renderPage(templateImg, page.fields);
+                            if (firstPageAdded) pdf.addPage();
+                            firstPageAdded = true;
+                            pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+                        });
+
+                        if (!firstPageAdded) {
+                            alert("No template images could be loaded for this form.");
+                            return;
+                        }
+
+                        const pdfBlob = pdf.output('blob');
+                        const blobUrl = URL.createObjectURL(pdfBlob);
+                        window.open(blobUrl, '_blank');
+                    }).catch((error) => {
+                        console.error("PDF Generation Error:", error);
+                        alert("Could not generate PDF. Error: " + error.message);
+                    });
+                } else {
+                    // Single-page form (existing behavior)
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+                    const pdfBlob = pdf.output('blob');
+                    const blobUrl = URL.createObjectURL(pdfBlob);
+                    window.open(blobUrl, '_blank');
+                }
             } catch (error) {
                 console.error("PDF Generation Error:", error);
                 alert("Could not generate PDF. Error: " + error.message);
