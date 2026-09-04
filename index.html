@@ -255,6 +255,11 @@ Position: SUPINE</pre>
             const lines = [];
             const maxWidth = field.maxWidth;
 
+             // Prefix the first line with a dot and the configured number of spaces
+            if (field.padSpaces && paragraphs.length) {
+                paragraphs[0] = '.' + ' '.repeat(field.padSpaces) + paragraphs[0];
+            }
+
             paragraphs.forEach(paragraph => {
                 if (!paragraph) {
                     lines.push('');
