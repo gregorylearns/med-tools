@@ -997,5 +997,125 @@ const FORMS_CONFIG = {
       },
     ],
   },
+  surgpath: {
+    name: "Surgical Pathology Form",
+    template: "surgpath.png",
+    canvasWidth: 2550, // A4 Portrait 300 DPI
+    canvasHeight: 3900,
+    pdfOrientation: "p",
+    pdfUnit: "pt",
+    pdfFormat: "legal",
+    sections: [
+      {
+        title: "Surgical Pathology Form",
+        fields: [
+          {
+            id: "sp_name", label: "Name", placeholder: "Name:",
+            type: "text", class: "small", x: 240, y: 490,
+            font: "36px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "sp_age", label: "Age", placeholder: "Age:",
+            type: "text", class: "small", x: 240, y: 620,
+            font: "36px 'Iosevka', monospace",
+            flex: 1
+          },
+          {
+            id: "sp_civil_status", label: "Civil Status", placeholder: "Civil Status:",
+            type: "text", x: 750, y: 620,
+            font: "36px 'Iosevka', monospace",
+          },
+          {
+            id: "sp_address", label: "Address", placeholder: "Address:",
+            type: "text", x: 1040, y: 620,
+            font: "36px 'Iosevka', monospace",
+            newRow: true
+          },
+          {
+            id: "sp_ward", label: "Ward:", placeholder: "Ward:",
+            type: "text", x: 240, y: 740,
+            font: "36px 'Iosevka', monospace",
+          },
+          {
+            id: "sp_bed", label: "Bed:", placeholder: "Bed:",
+            type: "text", x: 750, y: 740,
+            font: "36px 'Iosevka', monospace",
+          },
+          {
+            id: "sp_contact_no", label: "Contact No:", placeholder: "Contact No:",
+            type: "text", x: 1030, y: 740,
+            font: "36px 'Iosevka', monospace",
+          },
+          {
+            id: "sp_datetime", label: "Date and Time", placeholder: "Date and Time Referred:",
+            type: "text", x: 1740, y: 740,
+            font: "36px 'Iosevka', monospace",
+            showNowButton: true,
+            nowButtonMode: "datetime",
+          },
+          {
+            id: "sp_source", label: "Source of Specimen:", placeholder: "Source of Specimen:",
+            type: "text", x: 240, y: 860,
+            font: "36px 'Iosevka', monospace",
+            newRow: true
+          },
+          {
+            id: "sp_history_pe", label: "Pertinent History and PE", placeholder: "Pertinent history and PE:",
+            type: "textarea", x: 150, y: 1090,
+            font: "36px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1150,
+            lineHeight: 36,
+            newRow: true
+          },
+          {
+            id: "sp_imaging", label: "Imaging", placeholder: "Imaging:",
+            type: "textarea", x: 1340, y: 1120,
+            font: "36px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1050,
+            lineHeight: 36,
+            newRow: true
+          },
+          {
+            id: "sp_pmh", label: "Pertinent Past Medical History:", placeholder: "Pertinent Past Medical History:",
+            type: "text", x: 135, y: 1840,
+            font: "36px 'Iosevka', monospace",
+            newRow: true
+          },
+          {
+            id: "sp_treatment", label: "Prior and Current Treatment:", placeholder: "Prior and Current Treatment:",
+            type: "text", x: 1360, y: 1840,
+            font: "36px 'Iosevka', monospace",
+          },
+          {
+            id: "sp_operationdone", label: "Operation Done", placeholder: "Operation Done:",
+            type: "text", x: 135, y: 2130,
+            font: "36px 'Iosevka', monospace",
+            newRow: true
+          },
+          {
+            id: "sp_timeofremoval", label: "Time of Removal", placeholder: "Time of Removal:",
+            type: "text", x: 1360, y: 2010,
+            font: "36px 'Iosevka', monospace",
+          },
+          {
+            id: "sp_suturetags", label: "Suture Tags", placeholder: "Suture Tags:",
+            type: "text", x: 615, y: 955,
+            font: "36px 'Iosevka', monospace",
+            newRow: true
+          },
+          {
+            id: "sp_postopdiag", label: "Post Operative Diagnosis", placeholder: "Post Operative Diagnosis:",
+            type: "text", x: 135, y: 2250,
+            font: "36px 'Iosevka', monospace",
+            newRow: true
+          },
+        ],
+      },
+    ],
+  },
 };
   
