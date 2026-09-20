@@ -184,7 +184,9 @@ Position: SUPINE</pre>
                         // Textareas always get their own row/block
                         const textarea = document.createElement('textarea');
                         textarea.id = field.id;
-                        textarea.placeholder = field.placeholder;
+                        // Fall back to `label` when `placeholder` is omitted so the
+                        // two don't have to be written twice when they're identical.
+                        textarea.placeholder = field.placeholder ?? field.label;
                         textarea.oninput = updatePreview;
                         sectionDiv.appendChild(textarea);
                         currentRow = null; // Reset row grouping
@@ -201,7 +203,8 @@ Position: SUPINE</pre>
                         const input = document.createElement('input');
                         input.type = 'text';
                         input.id = field.id;
-                        input.placeholder = field.placeholder;
+                        // Fall back to `label` when `placeholder` is omitted.
+                        input.placeholder = field.placeholder ?? field.label;
                         if (field.class) {
                             input.className = field.class;
                         }

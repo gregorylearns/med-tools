@@ -14,7 +14,6 @@ const FORMS_CONFIG = {
           {
             id: "name1",
             label: "Name",
-            placeholder: "Name",
             type: "text",
             x: 315,
             y: 445,
@@ -24,7 +23,6 @@ const FORMS_CONFIG = {
           {
             id: "date1",
             label: "Date",
-            placeholder: "Date",
             type: "text",
             class: "small",
             x: 1140,
@@ -37,7 +35,6 @@ const FORMS_CONFIG = {
           {
             id: "ward1",
             label: "Ward/Unit",
-            placeholder: "Ward/Unit",
             type: "text",
             x: 320,
             y: 545,
@@ -48,7 +45,6 @@ const FORMS_CONFIG = {
           {
             id: "age1",
             label: "Age/Sex",
-            placeholder: "Age/Sex",
             type: "text",
             class: "small",
             x: 920,
@@ -59,7 +55,6 @@ const FORMS_CONFIG = {
           {
             id: "tag1",
             label: "Tag #",
-            placeholder: "Tag #",
             type: "text",
             class: "small",
             x: 1140,
@@ -88,7 +83,6 @@ const FORMS_CONFIG = {
           {
             id: "name2",
             label: "Name",
-            placeholder: "Name",
             type: "text",
             x: 2069,
             y: 445,
@@ -98,7 +92,6 @@ const FORMS_CONFIG = {
           {
             id: "date2",
             label: "Date",
-            placeholder: "Date",
             type: "text",
             class: "small",
             x: 2894,
@@ -111,7 +104,6 @@ const FORMS_CONFIG = {
           {
             id: "ward2",
             label: "Ward/Unit",
-            placeholder: "Ward/Unit",
             type: "text",
             x: 2074,
             y: 545,
@@ -122,7 +114,6 @@ const FORMS_CONFIG = {
           {
             id: "age2",
             label: "Age/Sex",
-            placeholder: "Age/Sex",
             type: "text",
             class: "small",
             x: 2674,
@@ -133,7 +124,6 @@ const FORMS_CONFIG = {
           {
             id: "tag2",
             label: "Tag #",
-            placeholder: "Tag #",
             type: "text",
             class: "small",
             x: 2894,
@@ -186,7 +176,6 @@ const FORMS_CONFIG = {
           {
             id: "idr_agesex",
             label: "Age/Sex",
-            placeholder: "Age/Sex",
             type: "text",
             class: "small",
             x: 1580,
@@ -832,7 +821,6 @@ const FORMS_CONFIG = {
           {
             id: "hosp-no1",
             label: "Hospital #",
-            placeholder: "Hospital #",
             type: "text",
             font: "28px 'Iosevka', monospace",
             anchorBottom: true
@@ -840,7 +828,6 @@ const FORMS_CONFIG = {
           {
             id: "req-no1",
             label: "Requisition No.",
-            placeholder: "Requisition No.",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 2,
@@ -848,7 +835,6 @@ const FORMS_CONFIG = {
           {
             id: "date1",
             label: "Date",
-            placeholder: "Date",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -858,7 +844,6 @@ const FORMS_CONFIG = {
           {
             id: "name1",
             label: "Patient Name",
-            placeholder: "Patient Name",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -867,7 +852,6 @@ const FORMS_CONFIG = {
           {
             id: "age1",
             label: "Age",
-            placeholder: "Age",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -876,7 +860,6 @@ const FORMS_CONFIG = {
           {
             id: "DOB1",
             label: "Date of Birth",
-            placeholder: "Date of Birth",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -884,7 +867,6 @@ const FORMS_CONFIG = {
           {
             id: "ward1",
             label: "Ward",
-            placeholder: "Ward",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -892,7 +874,6 @@ const FORMS_CONFIG = {
           {
             id: "sex1",
             label: "Sex",
-            placeholder: "Sex",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -901,7 +882,6 @@ const FORMS_CONFIG = {
           {
             id: "LMP1",
             label: "LMP",
-            placeholder: "LMP",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -909,7 +889,6 @@ const FORMS_CONFIG = {
           {
             id: "address1",
             label: "Address",
-            placeholder: "Address",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -918,7 +897,6 @@ const FORMS_CONFIG = {
           {
             id: "req_exam1",
             label: "Requested Examination/s",
-            placeholder: "Requested Examination/s",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -927,7 +905,6 @@ const FORMS_CONFIG = {
           {
             id: "diag1",
             label: "Diagnosis",
-            placeholder: "Diagnosis",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -936,7 +913,6 @@ const FORMS_CONFIG = {
           {
             id: "indication1",
             label: "Indication",
-            placeholder: "Indication",
             type: "text",
             font: "28px 'Iosevka', monospace",
             flex: 1,
@@ -945,7 +921,6 @@ const FORMS_CONFIG = {
           {
             id: "history1",
             label: "Brief History",
-            placeholder: "Brief History",
             type: "textarea",
             font: "36px 'Iosevka', monospace",
             isMultiline: true,
@@ -981,6 +956,319 @@ const FORMS_CONFIG = {
       },
       {
         template: "radioctscana4.png",
+        fields: [
+          { id: "hosp-no1", x: 1555, y: 550, font: "28px 'Iosevka', monospace", anchorBottom: true },
+          { id: "date1", x: 210, y: 550, font: "28px 'Iosevka', monospace" },
+          { id: "ward1", x: 2060, y: 550, font: "28px 'Iosevka', monospace" },
+          { id: "name1", x: 250, y: 650, font: "28px 'Iosevka', monospace" },
+          { id: "age1", x: 1520, y: 650, font: "28px 'Iosevka', monospace" },
+          { id: "sex1", x: 1600, y: 650, font: "28px 'Iosevka', monospace" },
+          { id: "DOB1", x: 2040, y: 650, font: "28px 'Iosevka', monospace" },
+          { id: "address1", x: 260, y: 780, font: "28px 'Iosevka', monospace" },
+          { id: "history1", x: 90, y: 1220, font: "36px 'Iosevka', monospace", isMultiline: true, maxWidth: 2300, lineHeight: 36 },
+        ],
+      },
+    ],
+  },
+  cf3: {
+    name: "PhilHealth CF3",
+    canvasWidth: 2480,
+    canvasHeight: 3508,
+    pdfOrientation: "p", // 'l' for landscape, 'p' for portrait
+    pdfUnit: "pt",
+    pdfFormat: "a4",
+    // Shared UI fields (rendered once in the form). Coordinates here are for
+    // the live preview (page 1). Each page in `pages` has its own coordinates.
+    sections: [
+      {
+        title: "PhilHealth CF3",
+        fields: [
+          {
+            id: "name1",
+            label: "Patient Name",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "date-admitted",
+            label: "Date Admitted",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "time-admitted-am",
+            label: "Time Admitted (AM)",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "time-admitted-pm",
+            label: "Time Admitted (PM)",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "chief-complaint",
+            label: "Chief Complaint",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "ob-history",
+            label: "Brief History",
+            type: "textarea",
+            font: "36px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1200,
+            lineHeight: 36,
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pe-gs",
+            label: "General Survey",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pe-vitals-bp",
+            label: "Vital Signs (BP):",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "pe-vitals-cr",
+            label: "Vital Signs (CR):",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "pe-vitals-rr",
+            label: "Vital Signs (RR):",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "pe-vitals-temp",
+            label: "Vital Signs (Temp):",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "pe-heent",
+            label: "HEENT",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pe-cl",
+            label: "Chest/Lungs",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pe-abdomen",
+            label: "Abdomen",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pe-gu",
+            label: "GU",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pe-se",
+            label: "Skin/Extremities",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pe-neuro",
+            label: "Neuro Examination",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "course-wards",
+            label: "Course in the Wards",
+            type: "textarea",
+            font: "36px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1200,
+            lineHeight: 36,
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "pertinent-labs",
+            label: "Pertinent Laboratory and Diagnostic Findings",
+            type: "textarea",
+            font: "36px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1200,
+            lineHeight: 36,
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "menstrual-hx",
+            label: "Menstrual History",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "obstetric-hx",
+            label: "Obstetric History",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "admitting-diagnosis",
+            label: "Admitting Diagnosis",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "date-delivery",
+            label: "Date of Delivery",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "time-delivery-am",
+            label: "Time Delivery (AM)",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "time-delivery-pm",
+            label: "Time Delivery (PM)",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "sex1",
+            label: "Sex",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "LMP1",
+            label: "LMP",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+          },
+          {
+            id: "address1",
+            label: "Address",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "req_exam1",
+            label: "Requested Examination/s",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "diag1",
+            label: "Diagnosis",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "indication1",
+            label: "Indication",
+            type: "text",
+            font: "28px 'Iosevka', monospace",
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "history1",
+            label: "Brief History",
+            type: "textarea",
+            font: "36px 'Iosevka', monospace",
+            isMultiline: true,
+            maxWidth: 1200,
+            lineHeight: 36,
+            flex: 1,
+            newRow: true
+          },
+        ],
+      },
+    ],
+    // Each page has its own template image and per-page field coordinates.
+    // The field IDs must match the shared `sections` field IDs above.
+    pages: [
+      {
+        template: "ph-cf3-1.png",
+        fields: [
+          { id: "hosp-no1", x: 435, y: 365, font: "28px 'Iosevka', monospace", anchorBottom: true },
+          { id: "req-no1", x: 1920, y: 185, font: "28px 'Iosevka', monospace" },
+          { id: "date1", x: 335, y: 420, font: "28px 'Iosevka', monospace" },
+          { id: "name1", x: 500, y: 520, font: "28px 'Iosevka', monospace" },
+          { id: "age1", x: 310, y: 640, font: "28px 'Iosevka', monospace" },
+          { id: "DOB1", x: 820, y: 640, font: "28px 'Iosevka', monospace" },
+          { id: "ward1", x: 1330, y: 640, font: "28px 'Iosevka', monospace" },
+          { id: "sex1", x: 310, y: 690, font: "28px 'Iosevka', monospace" },
+          { id: "LMP1", x: 660, y: 690, font: "28px 'Iosevka', monospace" },
+          { id: "address1", x: 380, y: 740, font: "28px 'Iosevka', monospace" },
+          { id: "req_exam1", x: 680, y: 800, font: "28px 'Iosevka', monospace" },
+          { id: "diag1", x: 405, y: 970, font: "28px 'Iosevka', monospace" },
+          { id: "indication1", x: 930, y: 1030, font: "28px 'Iosevka', monospace" },
+          { id: "history1", x: 450, y: 1085, font: "36px 'Iosevka', monospace", isMultiline: true, maxWidth: 1350, lineHeight: 36 },
+        ],
+      },
+      {
+        template: "ph-cf3-2.png",
         fields: [
           { id: "hosp-no1", x: 1555, y: 550, font: "28px 'Iosevka', monospace", anchorBottom: true },
           { id: "date1", x: 210, y: 550, font: "28px 'Iosevka', monospace" },
