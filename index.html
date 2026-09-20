@@ -247,9 +247,11 @@ Position: SUPINE</pre>
         };
     }
 
-    function drawField(ctx, field, value) {
+    function drawField(ctx, field, value, defaultFont) {
         if (!value) return;
-        ctx.font = field.font || "28px 'RobotoMono', monospace";
+        // Fall back to the form-level default font (then a hard-coded fallback)
+        // so individual fields only need to declare `font` when it differs.
+        ctx.font = field.font || defaultFont || "28px 'RobotoMono', monospace";
         ctx.fillStyle = "black";
         ctx.textBaseline = "top";
 
@@ -320,7 +322,7 @@ Position: SUPINE</pre>
                 const val = element.value || '';
                 if (!val) return;
 
-                drawField(ctx, field, val);
+                drawField(ctx, field, val, config.font);
             });
         });
     }
@@ -402,7 +404,7 @@ Position: SUPINE</pre>
                         if (!element) return;
                         const val = element.value || '';
                         if (!val) return;
-                        drawField(pctx, field, val);
+                        drawField(pctx, field, val, config.font);
                     });
 
                     return pageCanvas.toDataURL('image/jpeg', 0.95);
