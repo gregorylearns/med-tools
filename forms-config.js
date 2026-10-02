@@ -1062,317 +1062,317 @@ const FORMS_CONFIG = {
       },
     ],
   },
-  cf3: {
-    name: "PhilHealth CF3",
-    font: "28px 'Iosevka', monospace",
-    canvasWidth: 2550,
-    canvasHeight: 4200,
-    pdfOrientation: "p", // 'l' for landscape, 'p' for portrait
-    pdfUnit: "pt",
-    pdfFormat: "legal",
-    // Shared UI fields (rendered once in the form). Coordinates here are for
-    // the live preview (page 1). Each page in `pages` has its own coordinates.
-    sections: [
-      {
-        title: "PhilHealth CF3",
-        fields: [
-          {
-            id: "name1",
-            label: "Patient Name",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "date-admitted",
-            label: "Date Admitted",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "time-admitted-am",
-            label: "Time Admitted (AM)",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "time-admitted-pm",
-            label: "Time Admitted (PM)",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "chief-complaint",
-            label: "Chief Complaint",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "ob-history",
-            label: "Brief History",
-            type: "textarea",
-            font: "36px 'Iosevka', monospace",
-            isMultiline: true,
-            maxWidth: 1200,
-            lineHeight: 36,
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pe-gs",
-            label: "General Survey",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pe-vitals-bp",
-            label: "Vital Signs (BP):",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "pe-vitals-cr",
-            label: "Vital Signs (CR):",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "pe-vitals-rr",
-            label: "Vital Signs (RR):",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "pe-vitals-temp",
-            label: "Vital Signs (Temp):",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "pe-heent",
-            label: "HEENT",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pe-cl",
-            label: "Chest/Lungs",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pe-abdomen",
-            label: "Abdomen",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pe-gu",
-            label: "GU",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pe-se",
-            label: "Skin/Extremities",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pe-neuro",
-            label: "Neuro Examination",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "course-wards",
-            label: "Course in the Wards",
-            type: "textarea",
-            font: "36px 'Iosevka', monospace",
-            isMultiline: true,
-            maxWidth: 1200,
-            lineHeight: 36,
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "pertinent-labs",
-            label: "Pertinent Laboratory and Diagnostic Findings",
-            type: "textarea",
-            font: "36px 'Iosevka', monospace",
-            isMultiline: true,
-            maxWidth: 1200,
-            lineHeight: 36,
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "menstrual-hx",
-            label: "Menstrual History",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "obstetric-hx",
-            label: "Obstetric History",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "admitting-diagnosis",
-            label: "Admitting Diagnosis",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "date-delivery",
-            label: "Date of Delivery",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "time-delivery-am",
-            label: "Time Delivery (AM)",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "time-delivery-pm",
-            label: "Time Delivery (PM)",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "maternal-outcome",
-            label: "Maternal Outcome (Obstetric Index):",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "aog-lmp",
-            label: "AOG by LMP:",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "manner-delivery",
-            label: "Manner of Delivery",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "presentation",
-            label: "Presentation",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "fetal-outcome",
-            label: "Fetal Outcome",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "birth-sex",
-            label: "Sex",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "birth-wt",
-            label: "Birth Weight (g)",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "birth-Apgar Score",
-            label: "Apgar Score",
-            type: "text",
-            flex: 1,
-          },
-          {
-            id: "scheduled-postpartum",
-            label: "Scheduled-postpartum",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "date-discharge",
-            label: "Date of Discharge",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "time-discharge-am",
-            label: "Time Discharge (AM)",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-          {
-            id: "time-discharge-pm",
-            label: "Time Discharge (PM)",
-            type: "text",
-            flex: 1,
-            newRow: true
-          },
-        ],
-      },
-    ],
-    // Each page has its own template image and per-page field coordinates.
-    // The field IDs must match the shared `sections` field IDs above.
-    pages: [
-      {
-        template: "ph-cf3-1.png",
-        fields: [
-          { id: "hosp-no1", x: 435, y: 365, font: "28px 'Iosevka', monospace", anchorBottom: true },
-          { id: "req-no1", x: 1920, y: 185, font: "28px 'Iosevka', monospace" },
-          { id: "date1", x: 335, y: 420, font: "28px 'Iosevka', monospace" },
-          { id: "name1", x: 500, y: 520, font: "28px 'Iosevka', monospace" },
-          { id: "age1", x: 310, y: 640, font: "28px 'Iosevka', monospace" },
-          { id: "DOB1", x: 820, y: 640, font: "28px 'Iosevka', monospace" },
-          { id: "ward1", x: 1330, y: 640, font: "28px 'Iosevka', monospace" },
-          { id: "sex1", x: 310, y: 690, font: "28px 'Iosevka', monospace" },
-          { id: "LMP1", x: 660, y: 690, font: "28px 'Iosevka', monospace" },
-          { id: "address1", x: 380, y: 740, font: "28px 'Iosevka', monospace" },
-          { id: "req_exam1", x: 680, y: 800, font: "28px 'Iosevka', monospace" },
-          { id: "diag1", x: 405, y: 970, font: "28px 'Iosevka', monospace" },
-          { id: "indication1", x: 930, y: 1030, font: "28px 'Iosevka', monospace" },
-          { id: "history1", x: 450, y: 1085, font: "36px 'Iosevka', monospace", isMultiline: true, maxWidth: 1350, lineHeight: 36 },
-        ],
-      },
-      {
-        template: "ph-cf3-2.png",
-        fields: [
-          { id: "hosp-no1", x: 1555, y: 550, font: "28px 'Iosevka', monospace", anchorBottom: true },
-          { id: "date1", x: 210, y: 550, font: "28px 'Iosevka', monospace" },
-          { id: "ward1", x: 2060, y: 550, font: "28px 'Iosevka', monospace" },
-          { id: "name1", x: 250, y: 650, font: "28px 'Iosevka', monospace" },
-          { id: "age1", x: 1520, y: 650, font: "28px 'Iosevka', monospace" },
-          { id: "sex1", x: 1600, y: 650, font: "28px 'Iosevka', monospace" },
-          { id: "DOB1", x: 2040, y: 650, font: "28px 'Iosevka', monospace" },
-          { id: "address1", x: 260, y: 780, font: "28px 'Iosevka', monospace" },
-          { id: "history1", x: 90, y: 1220, font: "36px 'Iosevka', monospace", isMultiline: true, maxWidth: 2300, lineHeight: 36 },
-        ],
-      },
-    ],
-  },
+  // cf3: {
+  //   name: "PhilHealth CF3",
+  //   font: "28px 'Iosevka', monospace",
+  //   canvasWidth: 2550,
+  //   canvasHeight: 4200,
+  //   pdfOrientation: "p", // 'l' for landscape, 'p' for portrait
+  //   pdfUnit: "pt",
+  //   pdfFormat: "legal",
+  //   // Shared UI fields (rendered once in the form). Coordinates here are for
+  //   // the live preview (page 1). Each page in `pages` has its own coordinates.
+  //   sections: [
+  //     {
+  //       title: "PhilHealth CF3",
+  //       fields: [
+  //         {
+  //           id: "name1",
+  //           label: "Patient Name",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "date-admitted",
+  //           label: "Date Admitted",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "time-admitted-am",
+  //           label: "Time Admitted (AM)",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "time-admitted-pm",
+  //           label: "Time Admitted (PM)",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "chief-complaint",
+  //           label: "Chief Complaint",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "ob-history",
+  //           label: "Brief History",
+  //           type: "textarea",
+  //           font: "36px 'Iosevka', monospace",
+  //           isMultiline: true,
+  //           maxWidth: 1200,
+  //           lineHeight: 36,
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pe-gs",
+  //           label: "General Survey",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pe-vitals-bp",
+  //           label: "Vital Signs (BP):",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "pe-vitals-cr",
+  //           label: "Vital Signs (CR):",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "pe-vitals-rr",
+  //           label: "Vital Signs (RR):",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "pe-vitals-temp",
+  //           label: "Vital Signs (Temp):",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "pe-heent",
+  //           label: "HEENT",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pe-cl",
+  //           label: "Chest/Lungs",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pe-abdomen",
+  //           label: "Abdomen",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pe-gu",
+  //           label: "GU",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pe-se",
+  //           label: "Skin/Extremities",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pe-neuro",
+  //           label: "Neuro Examination",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "course-wards",
+  //           label: "Course in the Wards",
+  //           type: "textarea",
+  //           font: "36px 'Iosevka', monospace",
+  //           isMultiline: true,
+  //           maxWidth: 1200,
+  //           lineHeight: 36,
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "pertinent-labs",
+  //           label: "Pertinent Laboratory and Diagnostic Findings",
+  //           type: "textarea",
+  //           font: "36px 'Iosevka', monospace",
+  //           isMultiline: true,
+  //           maxWidth: 1200,
+  //           lineHeight: 36,
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "menstrual-hx",
+  //           label: "Menstrual History",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "obstetric-hx",
+  //           label: "Obstetric History",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "admitting-diagnosis",
+  //           label: "Admitting Diagnosis",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "date-delivery",
+  //           label: "Date of Delivery",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "time-delivery-am",
+  //           label: "Time Delivery (AM)",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "time-delivery-pm",
+  //           label: "Time Delivery (PM)",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "maternal-outcome",
+  //           label: "Maternal Outcome (Obstetric Index):",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "aog-lmp",
+  //           label: "AOG by LMP:",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "manner-delivery",
+  //           label: "Manner of Delivery",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "presentation",
+  //           label: "Presentation",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "fetal-outcome",
+  //           label: "Fetal Outcome",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "birth-sex",
+  //           label: "Sex",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "birth-wt",
+  //           label: "Birth Weight (g)",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "birth-Apgar Score",
+  //           label: "Apgar Score",
+  //           type: "text",
+  //           flex: 1,
+  //         },
+  //         {
+  //           id: "scheduled-postpartum",
+  //           label: "Scheduled-postpartum",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "date-discharge",
+  //           label: "Date of Discharge",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "time-discharge-am",
+  //           label: "Time Discharge (AM)",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //         {
+  //           id: "time-discharge-pm",
+  //           label: "Time Discharge (PM)",
+  //           type: "text",
+  //           flex: 1,
+  //           newRow: true
+  //         },
+  //       ],
+  //     },
+  //   ],
+  //   // Each page has its own template image and per-page field coordinates.
+  //   // The field IDs must match the shared `sections` field IDs above.
+  //   pages: [
+  //     {
+  //       template: "ph-cf3-1.png",
+  //       fields: [
+  //         { id: "hosp-no1", x: 435, y: 365, font: "28px 'Iosevka', monospace", anchorBottom: true },
+  //         { id: "req-no1", x: 1920, y: 185, font: "28px 'Iosevka', monospace" },
+  //         { id: "date1", x: 335, y: 420, font: "28px 'Iosevka', monospace" },
+  //         { id: "name1", x: 500, y: 520, font: "28px 'Iosevka', monospace" },
+  //         { id: "age1", x: 310, y: 640, font: "28px 'Iosevka', monospace" },
+  //         { id: "DOB1", x: 820, y: 640, font: "28px 'Iosevka', monospace" },
+  //         { id: "ward1", x: 1330, y: 640, font: "28px 'Iosevka', monospace" },
+  //         { id: "sex1", x: 310, y: 690, font: "28px 'Iosevka', monospace" },
+  //         { id: "LMP1", x: 660, y: 690, font: "28px 'Iosevka', monospace" },
+  //         { id: "address1", x: 380, y: 740, font: "28px 'Iosevka', monospace" },
+  //         { id: "req_exam1", x: 680, y: 800, font: "28px 'Iosevka', monospace" },
+  //         { id: "diag1", x: 405, y: 970, font: "28px 'Iosevka', monospace" },
+  //         { id: "indication1", x: 930, y: 1030, font: "28px 'Iosevka', monospace" },
+  //         { id: "history1", x: 450, y: 1085, font: "36px 'Iosevka', monospace", isMultiline: true, maxWidth: 1350, lineHeight: 36 },
+  //       ],
+  //     },
+  //     {
+  //       template: "ph-cf3-2.png",
+  //       fields: [
+  //         { id: "hosp-no1", x: 1555, y: 550, font: "28px 'Iosevka', monospace", anchorBottom: true },
+  //         { id: "date1", x: 210, y: 550, font: "28px 'Iosevka', monospace" },
+  //         { id: "ward1", x: 2060, y: 550, font: "28px 'Iosevka', monospace" },
+  //         { id: "name1", x: 250, y: 650, font: "28px 'Iosevka', monospace" },
+  //         { id: "age1", x: 1520, y: 650, font: "28px 'Iosevka', monospace" },
+  //         { id: "sex1", x: 1600, y: 650, font: "28px 'Iosevka', monospace" },
+  //         { id: "DOB1", x: 2040, y: 650, font: "28px 'Iosevka', monospace" },
+  //         { id: "address1", x: 260, y: 780, font: "28px 'Iosevka', monospace" },
+  //         { id: "history1", x: 90, y: 1220, font: "36px 'Iosevka', monospace", isMultiline: true, maxWidth: 2300, lineHeight: 36 },
+  //       ],
+  //     },
+  //   ],
+  // },
   surgpath: {
     name: "Surgical Pathology Form",
     template: "surgpath.png",
