@@ -141,6 +141,7 @@ const FORMS_CONFIG = {
   },
   prescriptioner: {
     name: "Prescription Pad (ER)",
+    font: "28px 'Iosevka', monospace",
     template: "rxer.png",
     canvasWidth: 3508,
     canvasHeight: 2480,
@@ -158,7 +159,6 @@ const FORMS_CONFIG = {
             type: "text",
             x: 380,
             y: 490,
-            font: "28px 'Iosevka', monospace",
             flex: 2
           },
           {
@@ -169,7 +169,6 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1320,
             y: 490,
-            font: "28px 'Iosevka', monospace",
             flex: 1,
             showNowButton: true,
             nowButtonMode: "date",
@@ -182,7 +181,6 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1040,
             y: 560,
-            font: "28px 'Iosevka', monospace",
             flex: 1,
             newRow: true
           },
@@ -194,7 +192,6 @@ const FORMS_CONFIG = {
             class: "small",
             x: 1320,
             y: 560,
-            font: "28px 'Iosevka', monospace",
             flex: 1,
           },
           {
@@ -233,7 +230,6 @@ const FORMS_CONFIG = {
             class: "small",
             x: 3080,
             y: 480,
-            font: "28px 'Iosevka', monospace",
             flex: 1,
             showNowButton: true,
             nowButtonMode: "date",
@@ -246,7 +242,6 @@ const FORMS_CONFIG = {
             class: "small",
             x: 2800,
             y: 560,
-            font: "28px 'Iosevka', monospace",
             flex: 1,
             newRow: true
           },
@@ -258,7 +253,6 @@ const FORMS_CONFIG = {
             class: "small",
             x: 3080,
             y: 560,
-            font: "28px 'Iosevka', monospace",
             flex: 1,
           },
           {
