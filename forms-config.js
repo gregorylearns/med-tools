@@ -2,7 +2,7 @@ const FORMS_CONFIG = {
   prescription: {
     name: "Prescription Pad",
     font: "28px 'Iosevka', monospace",
-    template: "template.png",
+    template: "forms/template.png",
     canvasWidth: 3508,
     canvasHeight: 2480,
     pdfOrientation: "l", // 'l' for landscape, 'p' for portrait
@@ -142,7 +142,7 @@ const FORMS_CONFIG = {
   prescriptioner: {
     name: "Prescription Pad (ER)",
     font: "28px 'Iosevka', monospace",
-    template: "rxer.png",
+    template: "forms/rxer.png",
     canvasWidth: 3508,
     canvasHeight: 2480,
     pdfOrientation: "l", // 'l' for landscape, 'p' for portrait
@@ -275,7 +275,7 @@ const FORMS_CONFIG = {
   idrformat: {
     name: "IDR Format 2026",
     font: "36px 'Iosevka', monospace",
-    template: "idrformat2026.png",
+    template: "forms/idrformat2026.png",
     canvasWidth: 2480, // A4 Portrait 300 DPI
     canvasHeight: 3508,
     pdfOrientation: "p",
@@ -389,7 +389,7 @@ const FORMS_CONFIG = {
   orproposal: {
     name: "OR Proposal",
     font: "36px 'Iosevka', monospace",
-    template: "orproposal.png",
+    template: "forms/orproposal.png",
     canvasWidth: 2480, // A4 Portrait 300 DPI
     canvasHeight: 3508,
     pdfOrientation: "p",
@@ -559,7 +559,7 @@ const FORMS_CONFIG = {
   orproposal_batch: {
     name: "Batch OR Proposal Generator (BETA)",
     font: "36px 'Iosevka', monospace",
-    template: "orproposal.png",
+    template: "forms/orproposal.png",
     canvasWidth: 2480,
     canvasHeight: 3508,
     pdfOrientation: "p",
@@ -569,7 +569,7 @@ const FORMS_CONFIG = {
   },
   radio: {
     name: "Radio Request",
-    template: "radiorequest.png",
+    template: "forms/radiorequest.png",
     canvasWidth: 2550,
     canvasHeight: 3300,
     pdfOrientation: "p", // 'l' for landscape, 'p' for portrait
@@ -1016,7 +1016,7 @@ const FORMS_CONFIG = {
     // The field IDs must match the shared `sections` field IDs above.
     pages: [
       {
-        template: "radiorequest.png",
+        template: "forms/radiorequest.png",
         fields: [
           { id: "hosp-no1", x: 435, y: 365, font: "28px 'Iosevka', monospace", anchorBottom: true },
           { id: "req-no1", x: 1920, y: 185, font: "28px 'Iosevka', monospace" },
@@ -1035,7 +1035,7 @@ const FORMS_CONFIG = {
         ],
       },
       {
-        template: "radioctscana4.png",
+        template: "forms/radioctscana4.png",
         fields: [
           { id: "hosp-no1", x: 1555, y: 550, font: "28px 'Iosevka', monospace", anchorBottom: true },
           { id: "date1", x: 210, y: 550, font: "28px 'Iosevka', monospace" },
@@ -1327,7 +1327,7 @@ const FORMS_CONFIG = {
   //   // The field IDs must match the shared `sections` field IDs above.
   //   pages: [
   //     {
-  //       template: "ph-cf3-1.png",
+  //       template: "forms/ph-cf3-1.png",
   //       fields: [
   //         { id: "hosp-no1", x: 435, y: 365, font: "28px 'Iosevka', monospace", anchorBottom: true },
   //         { id: "req-no1", x: 1920, y: 185, font: "28px 'Iosevka', monospace" },
@@ -1346,7 +1346,7 @@ const FORMS_CONFIG = {
   //       ],
   //     },
   //     {
-  //       template: "ph-cf3-2.png",
+  //       template: "forms/ph-cf3-2.png",
   //       fields: [
   //         { id: "hosp-no1", x: 1555, y: 550, font: "28px 'Iosevka', monospace", anchorBottom: true },
   //         { id: "date1", x: 210, y: 550, font: "28px 'Iosevka', monospace" },
@@ -1363,7 +1363,7 @@ const FORMS_CONFIG = {
   // },
   surgpath: {
     name: "Surgical Pathology Form",
-    template: "surgpath.png",
+    template: "forms/surgpath.png",
     canvasWidth: 2550, // A4 Portrait 300 DPI
     canvasHeight: 3900,
     pdfOrientation: "p",
