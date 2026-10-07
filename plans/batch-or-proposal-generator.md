@@ -1,5 +1,7 @@
 # Batch OR Proposal Generator — Plan
 
+## Done. This has been implemented
+
 ## Overview
 
 Add a new "Batch OR Proposal Generator" to the existing Forms Generator app that takes a numbered list of patient entries and generates a multi-page PDF, with each patient rendered on the OR Proposal template.

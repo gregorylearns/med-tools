@@ -1,5 +1,7 @@
 # Line Wrap Tool Plan
 
+## Done. This has been implemented
+
 A new standalone tool page that takes multi-line text input and re-wraps each line so that no line exceeds a configurable character limit (default 36). The wrapped result appears instantly in a second textarea, with a copy-to-clipboard button.
 
 ## Behavior (confirmed with user)
