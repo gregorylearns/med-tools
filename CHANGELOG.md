@@ -1,5 +1,6 @@
 ## 2026-10-07
 remove line wrap tool
+add changelog and version
 
 ## 2026-10-07
 move forms filename location to forms folder
