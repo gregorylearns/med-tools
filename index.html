@@ -24,6 +24,20 @@
 </div>
 
 <div id="app" style="display:none;">
+
+    <div id="debugPanel" style="display:none; margin-bottom: 20px; padding: 15px; border: 2px dashed #c0392b; background: #fff0f5; border-radius: 8px;">
+        <h2 style="margin-top:0; color:#c0392b;">🐞 Debug Mode (Lorem Fill)</h2>
+        <p style="font-size:13px; color:#555; margin-top:0;">Auto-fill selected forms with lorem ipsum and generate one combined PDF to check rendering. Enabled via <code>?debug=1</code>.</p>
+        <div style="margin-bottom:10px;">
+            <button type="button" id="debugSelectAll">Select all</button>
+            <button type="button" id="debugClearAll">Clear all</button>
+        </div>
+        <div id="debugFormList" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;"></div>
+        <div class="controls">
+            <button type="button" id="debugGenerateBtn" style="background-color:#c0392b;">Generate Lorem PDF</button>
+        </div>
+    </div>
+
     <div class="container">
 
         <h1 id="formTitle">Forms Generator</h1>
@@ -128,6 +142,9 @@ Position: SUPINE</pre>
 
         // Load initial form
         selectForm(currentFormKey);
+
+        // Debug mode (lorem auto-fill) — only active with ?debug=1
+        initDebugMode();
     }
 
     function selectForm(formKey) {
@@ -638,6 +655,210 @@ Position: SUPINE</pre>
             console.error("Batch PDF Generation Error:", error);
             alert("Could not load template image. Error: " + error.message);
         });
+    }
+
+    // ===== Debug Mode (Lorem Fill) =====
+    // Enabled via ?debug=1. Auto-fills selected forms with lorem ipsum and
+    // renders them into a single combined PDF for quick regression checking.
+
+    const LOREM_WORDS = (
+        "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod " +
+        "tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam " +
+        "quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo " +
+        "consequat duis aute irure in reprehenderit voluptate velit esse cillum " +
+        "eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident"
+    ).split(' ');
+
+    function loremWords(n) {
+        const out = [];
+        for (let i = 0; i < n; i++) {
+            out.push(LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)]);
+        }
+        return out;
+    }
+
+    function loremShort() {
+        const n = 2 + Math.floor(Math.random() * 3); // 2-4 words
+        const words = loremWords(n);
+        words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+        return words.join(' ');
+    }
+
+    function loremLong() {
+        const sentenceCount = 2 + Math.floor(Math.random() * 2); // 2-3 sentences
+        const sentences = [];
+        for (let s = 0; s < sentenceCount; s++) {
+            const wordCount = 6 + Math.floor(Math.random() * 8); // 6-13 words
+            const words = loremWords(wordCount);
+            words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+            sentences.push(words.join(' ') + '.');
+        }
+        return sentences.join(' ');
+    }
+
+    function populateDebugForms() {
+        const list = document.getElementById('debugFormList');
+        if (!list) return;
+        list.innerHTML = '';
+        for (const key in FORMS_CONFIG) {
+            const config = FORMS_CONFIG[key];
+            const hasFields = (config.sections && config.sections.length) ||
+                              (config.pages && config.pages.length);
+            if (!hasFields) continue; // skip forms with no fillable fields (e.g. batch)
+
+            const label = document.createElement('label');
+            label.style.cssText = 'display:flex;align-items:center;gap:6px;font-size:13px;' +
+                'background:#fff;padding:6px 10px;border:1px solid #ddd;border-radius:4px;cursor:pointer;';
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.value = key;
+            cb.checked = true;
+            cb.className = 'debug-form-cb';
+            label.appendChild(cb);
+            label.appendChild(document.createTextNode(config.name));
+            list.appendChild(label);
+        }
+    }
+
+    function generateDebugPDF(selectedKeys) {
+        const { jsPDF } = window.jspdf;
+        if (!selectedKeys || selectedKeys.length === 0) {
+            alert("Select at least one form to generate.");
+            return;
+        }
+
+        // Promise-based image loader that resolves null on error so a missing
+        // template just skips that page instead of aborting the whole PDF.
+        const loadImage = (src) => new Promise((resolve) => {
+            const image = new Image();
+            image.crossOrigin = "Anonymous";
+            image.onload = () => resolve(image);
+            image.onerror = () => {
+                console.warn("Template not found, skipping page:", src);
+                resolve(null);
+            };
+            image.src = src;
+        });
+
+        // Build render jobs: each job is a form with its list of pages
+        // (template + field definitions). Works for both single-page forms
+        // (sections) and multi-page forms (pages).
+        const jobs = selectedKeys.map((key) => {
+            const config = FORMS_CONFIG[key];
+            if (!config) return null;
+            let pages;
+            if (config.pages && config.pages.length) {
+                pages = config.pages.map((p) => ({ template: p.template, fields: p.fields }));
+            } else {
+                const fields = [];
+                (config.sections || []).forEach((s) => s.fields.forEach((f) => fields.push(f)));
+                pages = [{ template: config.template, fields }];
+            }
+            return { config, pages };
+        }).filter(Boolean);
+
+        if (jobs.length === 0) {
+            alert("No valid forms selected.");
+            return;
+        }
+
+        const first = jobs[0].config;
+        // Compute a PDF page's size (in points) from a form's format + orientation.
+        // Done explicitly (rather than pdf.internal.pageSize.getWidth/Height) so we
+        // never accidentally read the *previous* page's dimensions.
+        const PAGE_SIZES = {
+            a4: [595.28, 841.89],
+            letter: [612, 792],
+            legal: [612, 1008],
+        };
+        function pageDims(format, orientation) {
+            const base = PAGE_SIZES[format] || PAGE_SIZES.a4;
+            let w = base[0], h = base[1];
+            if (orientation === 'l') { const t = w; w = h; h = t; }
+            return [w, h];
+        }
+
+        const pdf = new jsPDF(first.pdfOrientation || 'p', first.pdfUnit || 'pt', first.pdfFormat || 'a4');
+        let firstPageAdded = false;
+
+        (async () => {
+            for (const job of jobs) {
+                const { config, pages } = job;
+                for (let pi = 0; pi < pages.length; pi++) {
+                    const page = pages[pi];
+                    const templateImg = await loadImage(page.template);
+                    if (!templateImg) continue;
+
+                    const pageCanvas = document.createElement('canvas');
+                    pageCanvas.width = config.canvasWidth;
+                    pageCanvas.height = config.canvasHeight;
+                    const pctx = pageCanvas.getContext('2d');
+                    pctx.clearRect(0, 0, pageCanvas.width, pageCanvas.height);
+                    pctx.drawImage(templateImg, 0, 0, pageCanvas.width, pageCanvas.height);
+                    pctx.fillStyle = "black";
+                    pctx.textBaseline = "top";
+
+                    page.fields.forEach((field) => {
+                        const value = field.isMultiline ? loremLong() : loremShort();
+                        drawField(pctx, field, value, config.font);
+                    });
+
+                    const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+                    const [pw, ph] = pageDims(config.pdfFormat || 'a4', config.pdfOrientation || 'p');
+
+                    // Scale the rendered canvas to FIT the page while preserving
+                    // aspect ratio (letterbox). This guarantees no form is ever
+                    // stretched/morphed, even when a template's pixel aspect ratio
+                    // doesn't exactly match its paper size (e.g. surgpath).
+                    const scale = Math.min(pw / config.canvasWidth, ph / config.canvasHeight);
+                    const drawW = config.canvasWidth * scale;
+                    const drawH = config.canvasHeight * scale;
+                    const offX = (pw - drawW) / 2;
+                    const offY = (ph - drawH) / 2;
+
+                    if (!firstPageAdded) {
+                        pdf.addImage(imgData, 'JPEG', offX, offY, drawW, drawH);
+                        firstPageAdded = true;
+                    } else {
+                        // Switch to this form's own paper size / orientation.
+                        pdf.addPage(config.pdfFormat || 'a4', config.pdfOrientation || 'p');
+                        pdf.addImage(imgData, 'JPEG', offX, offY, drawW, drawH);
+                    }
+                }
+            }
+
+            if (!firstPageAdded) {
+                alert("No template images could be loaded.");
+                return;
+            }
+
+            const pdfBlob = pdf.output('blob');
+            const blobUrl = URL.createObjectURL(pdfBlob);
+            window.open(blobUrl, '_blank');
+        })().catch((err) => {
+            console.error("Debug PDF Generation Error:", err);
+            alert("Could not generate debug PDF. Error: " + err.message);
+        });
+    }
+
+    function initDebugMode() {
+        if (new URLSearchParams(location.search).get('debug') !== '1') return;
+        const panel = document.getElementById('debugPanel');
+        if (!panel) return;
+        panel.style.display = 'block';
+        populateDebugForms();
+
+        document.getElementById('debugSelectAll').onclick = () => {
+            document.querySelectorAll('.debug-form-cb').forEach((cb) => { cb.checked = true; });
+        };
+        document.getElementById('debugClearAll').onclick = () => {
+            document.querySelectorAll('.debug-form-cb').forEach((cb) => { cb.checked = false; });
+        };
+        document.getElementById('debugGenerateBtn').onclick = () => {
+            const keys = Array.from(document.querySelectorAll('.debug-form-cb:checked'))
+                .map((cb) => cb.value);
+            generateDebugPDF(keys);
+        };
     }
 </script>
 </body>
