@@ -1,4 +1,4 @@
-const FORMS_CONFIG = {
+export const FORMS_CONFIG = {
   prescription: {
     name: "Prescription Pad",
     font: "28px 'Iosevka', monospace",
@@ -24,7 +24,7 @@ const FORMS_CONFIG = {
             id: "date1",
             label: "Date",
             type: "text",
-            class: "small",
+            // 
             x: 1140,
             y: 445,
             flex: 1,
@@ -44,7 +44,7 @@ const FORMS_CONFIG = {
             id: "age1",
             label: "Age/Sex",
             type: "text",
-            class: "small",
+            // 
             x: 920,
             y: 545,
             flex: 1,
@@ -53,7 +53,7 @@ const FORMS_CONFIG = {
             id: "tag1",
             label: "Tag #",
             type: "text",
-            class: "small",
+            // 
             x: 1140,
             y: 545,
             flex: 1,
@@ -88,7 +88,7 @@ const FORMS_CONFIG = {
             id: "date2",
             label: "Date",
             type: "text",
-            class: "small",
+            // 
             x: 2894,
             y: 445,
             flex: 1,
@@ -108,7 +108,7 @@ const FORMS_CONFIG = {
             id: "age2",
             label: "Age/Sex",
             type: "text",
-            class: "small",
+            // 
             x: 2674,
             y: 545,
             flex: 1,
@@ -117,7 +117,7 @@ const FORMS_CONFIG = {
             id: "tag2",
             label: "Tag #",
             type: "text",
-            class: "small",
+            // 
             x: 2894,
             y: 545,
             flex: 1,
@@ -166,7 +166,7 @@ const FORMS_CONFIG = {
             label: "Date",
             placeholder: "Date",
             type: "text",
-            class: "small",
+            
             x: 1320,
             y: 490,
             flex: 1,
@@ -178,7 +178,7 @@ const FORMS_CONFIG = {
             label: "Age/Sex",
             placeholder: "Age/Sex",
             type: "text",
-            class: "small",
+            
             x: 1040,
             y: 560,
             flex: 1,
@@ -189,7 +189,7 @@ const FORMS_CONFIG = {
             label: "Tag #",
             placeholder: "Tag #",
             type: "text",
-            class: "small",
+            
             x: 1320,
             y: 560,
             flex: 1,
@@ -226,7 +226,7 @@ const FORMS_CONFIG = {
             label: "Date",
             placeholder: "Date",
             type: "text",
-            class: "small",
+            
             x: 3080,
             y: 480,
             flex: 1,
@@ -238,7 +238,7 @@ const FORMS_CONFIG = {
             label: "Age/Sex",
             placeholder: "Age/Sex",
             type: "text",
-            class: "small",
+            
             x: 2800,
             y: 560,
             flex: 1,
@@ -249,7 +249,7 @@ const FORMS_CONFIG = {
             label: "Tag #",
             placeholder: "Tag #",
             type: "text",
-            class: "small",
+            
             x: 3080,
             y: 560,
             flex: 1,
@@ -300,7 +300,7 @@ const FORMS_CONFIG = {
             id: "idr_agesex",
             label: "Age/Sex",
             type: "text",
-            class: "small",
+            
             x: 1580,
             y: 770,
             flex: 1
@@ -410,7 +410,7 @@ const FORMS_CONFIG = {
             id: "orp_date",
             label: "Date:",
             type: "text",
-            class: "small",
+            
             x: 1720,
             y: 730,
             flex: 2,
@@ -1375,13 +1375,13 @@ const FORMS_CONFIG = {
         fields: [
           {
             id: "sp_name", label: "Name", placeholder: "Name:",
-            type: "text", class: "small", x: 240, y: 490,
+            type: "text",  x: 240, y: 490,
             flex: 1,
             newRow: true
           },
           {
             id: "sp_age", label: "Age", placeholder: "Age:",
-            type: "text", class: "small", x: 240, y: 620,
+            type: "text",  x: 240, y: 620,
             flex: 1
           },
           {

@@ -1,3 +1,5 @@
 *.pdf
 plan.md
 plans/*
+node_modules/
+coverage/
