@@ -8,7 +8,7 @@
     <title>Forms Generator</title>
     <script src="assets/jspdf.umd.min.js"></script>
     <!-- Pico: classless base styling (buttons, inputs, typography, spacing) -->
-    <link rel="stylesheet" href="assets/pico.min.css">
+    <link rel="stylesheet" href="assets/pico.css">
     <!-- Blades: design tokens + utilities (layers on top of Pico) -->
     <link rel="stylesheet" href="assets/blades.standalone.min.css">
     <!-- your custom overrides (loaded last so they win) -->
@@ -42,78 +42,91 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="app-shell">
 
-        <h1 id="formTitle">Forms Generator</h1>
+        <!-- Left navigation drawer: one link per form (Blades/Pico <nav> pattern) -->
+        <nav class="app-drawer" id="formDrawer">
+            <h2>Forms</h2>
+            <ul id="formList"></ul>
+        </nav>
 
-        <div style="margin-bottom: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-            <label for="formSelector" style="font-weight: bold; font-size: 16px;">Select Form Template:</label>
-            <select id="formSelector" onchange="selectForm(this.value)" style="padding: 10px 20px; font-size: 16px; border-radius: 6px; border: 1px solid #ccc; width: 100%; max-width: 400px; background-color: #fff; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            </select>
-        </div>
-        
-        <div id="formFieldsContainer" class="grid">
-            <!-- Dynamic fields will be rendered here -->
-        </div>
+        <!-- Main area: two columns (input editor | canvas preview) -->
+        <main class="app-main">
 
-        <div id="batchInputContainer" style="display:none;">
-            <h3>Paste Patient Entries</h3>
-            <p>You can optionally declare global variables (e.g. <code>Department</code>, <code>Date</code>, <code>Department Head</code>, <code>Instruments Needed</code>) at the very top. Then enter each patient's details as numbered entries separated by blank lines.</p>
-            <p>Bug: Live Preview does not work on Batch OR PROPOSAL MAKER</p>
-            <p><strong>Example:</strong></p>
-            <pre style="font-family:'Iosevka',monospace;font-size:13px;background:#f5f5f5;padding:10px;border-radius:4px;white-space:pre-wrap;">
-Department: SURGERY
-Date: 08/20/2026
-Department-Head: DR. SOMEONE
-Instruments: MAJOR LAPAROTOMY SET
+            <section class="editor-column">
+                <div class="topbar">
+                    <button id="drawerToggle" type="button" aria-label="Toggle navigation" aria-expanded="true">☰</button>
+                    <h1 id="formTitle">Forms Generator</h1>
+                </div>
 
-1. Name: Juan Dela Cruz
-Age: 45
-Sex: M
-Impression: ACUTE UNCOMPLICATED APPENDICITIS
-Proposed Operation: LAPAROTOMY APPENDECTOMY
-Surgeon: DR. IBONALO, LEO MARC
-Asst-surgeon: DR. CARREON, ARBIE JOHN
-Anes: AROD
-Surgery-date: 08/21/2026
-Est-time: 1 HOUR
-Floor: SP3
-Position: SUPINE
+                <div id="formFieldsContainer" class="grid">
+                    <!-- Dynamic fields will be rendered here -->
+                </div>
+
+                <div id="batchInputContainer" style="display:none;">
+                    <h3>Paste Patient Entries</h3>
+                    <p>You can optionally declare global variables (e.g. <code>Department</code>, <code>Date</code>, <code>Department Head</code>, <code>Instruments Needed</code>) at the very top. Then enter each patient's details as numbered entries separated by blank lines.</p>
+                    <p>Bug: Live Preview does not work on Batch OR PROPOSAL MAKER</p>
+                    <p><strong>Example:</strong></p>
+                    <pre style="font-family:'Iosevka',monospace;font-size:13px;background:#f5f5f5;padding:10px;border-radius:4px;white-space:pre-wrap;">
+ Department: SURGERY
+ Date: 08/20/2026
+ Department-Head: DR. SOMEONE
+ Instruments: MAJOR LAPAROTOMY SET
+
+ 1. Name: Juan Dela Cruz
+ Age: 45
+ Sex: M
+ Impression: ACUTE UNCOMPLICATED APPENDICITIS
+ Proposed Operation: LAPAROTOMY APPENDECTOMY
+ Surgeon: DR. IBONALO, LEO MARC
+ Asst-surgeon: DR. CARREON, ARBIE JOHN
+ Anes: AROD
+ Surgery-date: 08/21/2026
+ Est-time: 1 HOUR
+ Floor: SP3
+ Position: SUPINE
 
 
-2. Name: DALISAY CARDITA
-Age: 28
-Sex: F
-Impression: CHOLELITHIASIS
-Proposed Operation: LAPAROSCOPIC CHOLECYSTECTOMY, POSSIBLE OPEN
-Surgeon: DR. PAJANTOY, A LIESON
-Asst-surgeon: DR. JOSOL, ICE
-Anes: AROD
-Surgery-date: 08/21/2026
-Est-time: 1 HOUR
-Floor: SP3
-Position: SUPINE</pre>
-            <textarea id="batchInput" placeholder="Paste patient entries here..."></textarea>
-            <div class="controls">
-                <button id="batchGenerateBtn" onclick="generateBatchPDF()">Generate Batch PDF</button>
-            </div>
-        </div>
+ 2. Name: DALISAY CARDITA
+ Age: 28
+ Sex: F
+ Impression: CHOLELITHIASIS
+ Proposed Operation: LAPAROSCOPIC CHOLECYSTECTOMY, POSSIBLE OPEN
+ Surgeon: DR. PAJANTOY, A LIESON
+ Asst-surgeon: DR. JOSOL, ICE
+ Anes: AROD
+ Surgery-date: 08/21/2026
+ Est-time: 1 HOUR
+ Floor: SP3
+ Position: SUPINE</pre>
+                    <textarea id="batchInput" placeholder="Paste patient entries here..."></textarea>
+                    <div class="controls">
+                        <button id="batchGenerateBtn" onclick="generateBatchPDF()">Generate Batch PDF</button>
+                    </div>
+                </div>
 
-    <p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p>
-    <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
-    <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me xD)</i></p>
-    <div class="controls">
-        <button id="printBtn" onclick="generatePDF()">Generate PDF</button>
-    </div>
-    <div class="preview-label">Form Preview</div>
-    <!-- Canvas for Live Preview and Processing -->
-    <canvas id="pdfCanvas"></canvas>
-    <p><i>For more info contact cnu-vsmmc clerk g. abrasaldo</i></p>    
-    <p><i>For any bug reports/suggestions please feel free to submit a pull request or send me an <a href="mailto:gaabrasaldo@gmail.com">email</a></i></p>
-    <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
-    <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
-    <img alt="version" src="https://img.shields.io/badge/version-0.2.0-blue">
-    </div> <!-- closes .container -->
+                <p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p>
+                <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
+                <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me xD)</i></p>
+                <div class="controls">
+                    <button id="printBtn" onclick="generatePDF()">Generate PDF</button>
+                </div>
+                <p><i>For more info contact cnu-vsmmc clerk g. abrasaldo</i></p>    
+                <p><i>For any bug reports/suggestions please feel free to submit a pull request or send me an <a href="mailto:gaabrasaldo@gmail.com">email</a></i></p>
+                <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
+                <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
+                <img alt="version" src="https://img.shields.io/badge/version-0.2.0-blue">
+            </section>
+
+            <section class="preview-column" id="previewColumn">
+                <div class="preview-label">Form Preview</div>
+                <!-- Canvas for Live Preview and Processing -->
+                <canvas id="pdfCanvas"></canvas>
+            </section>
+
+        </main>
+    </div> <!-- closes .app-shell -->
 </div> <!-- closes #app -->
 
 <script type="module">
@@ -131,26 +144,41 @@ Position: SUPINE</pre>
         const password = document.getElementById('pw').value;
         if (password === '1') {
             document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('app').style.display = 'block';
+            document.getElementById('app').style.display = 'flex';
             initApp();
         } else {
             document.getElementById('loginError').textContent = 'Incorrect access code';
         }
     }
 
+    function toggleDrawer() {
+        const shell = document.querySelector('.app-shell');
+        const collapsed = shell.classList.toggle('drawer-collapsed');
+        const btn = document.getElementById('drawerToggle');
+        if (btn) btn.setAttribute('aria-expanded', String(!collapsed));
+    }
+
     function initApp() {
-        // Populate form selector dropdown
-        const selector = document.getElementById('formSelector');
-        selector.innerHTML = '';
+        // Populate the left nav drawer with one link per form
+        const list = document.getElementById('formList');
+        list.innerHTML = '';
         for (const key in FORMS_CONFIG) {
-            const option = document.createElement('option');
-            option.value = key;
-            option.textContent = FORMS_CONFIG[key].name;
-            selector.appendChild(option);
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#';
+            a.className = 'secondary';
+            a.dataset.formKey = key;
+            a.textContent = FORMS_CONFIG[key].name;
+            a.onclick = (e) => { e.preventDefault(); selectForm(key); };
+            li.appendChild(a);
+            list.appendChild(li);
         }
 
         // Load initial form
         selectForm(currentFormKey);
+
+        // Drawer collapse/expand toggle
+        document.getElementById('drawerToggle').addEventListener('click', toggleDrawer);
 
         // Debug mode (lorem auto-fill) — only active with ?debug=1
         initDebugMode();
@@ -160,6 +188,15 @@ Position: SUPINE</pre>
         currentFormKey = formKey;
         const config = FORMS_CONFIG[formKey];
         if (!config) return;
+
+        // Update active item in the left nav drawer
+        document.querySelectorAll('#formList a').forEach((a) => {
+            if (a.dataset.formKey === formKey) {
+                a.setAttribute('aria-current', 'page');
+            } else {
+                a.removeAttribute('aria-current');
+            }
+        });
 
         // Update Title
         document.getElementById('formTitle').textContent = config.name + " Generator";
@@ -171,6 +208,7 @@ Position: SUPINE</pre>
         const fieldsContainer = document.getElementById('formFieldsContainer');
         const printBtn = document.getElementById('printBtn');
         const tipMsg = document.getElementById('tipMessage');
+        const previewColumn = document.getElementById('previewColumn');
 
         if (isBatch) {
             // Show batch input, hide form fields and print button
@@ -178,12 +216,14 @@ Position: SUPINE</pre>
             fieldsContainer.style.display = 'none';
             printBtn.style.display = 'none';
             tipMsg.style.display = 'none';
+            previewColumn.style.display = 'none';
         } else {
             // Show form fields, hide batch input
             batchContainer.style.display = 'none';
             fieldsContainer.style.display = 'block';
             printBtn.style.display = 'inline-block';
             tipMsg.style.display = 'inline';
+            previewColumn.style.display = '';
         }
 
         if (!isBatch) {
