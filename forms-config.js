@@ -1039,6 +1039,20 @@ export const FORMS_CONFIG = {
       {
         title: "PhilHealth CF3",
         fields: [
+          // --- Grid / block fields -------------------------------------------------
+          // Some CF3 fields are laid out as individual character blocks on the form
+          // (e.g. dates, times, outcomes). Instead of splitting them into many
+          // inputs, give the single text field a `charSpaces` array: character `i`
+          // is followed by `charSpaces[i]` spaces so each typed char lands in its
+          // own block. Measure the gaps (in monospace char widths) on the template
+          // and tune the numbers. Example (value "ABCD" -> "A    B          C    D"):
+          // {
+          //   id: "example-grid",
+          //   label: "Example Grid Field",
+          //   type: "text",
+          //   x: 120, y: 885,
+          //   charSpaces: [4, 10, 4],
+          // },
           {
             id: "name1",
             label: "Patient Name",
@@ -1185,7 +1199,7 @@ export const FORMS_CONFIG = {
             label: "Menstrual History (LMP):",
             type: "text",
             flex: 1,
-            newRow: true
+            newRow: true,
           },
           {
             id: "age-menarche",
@@ -1310,7 +1324,8 @@ export const FORMS_CONFIG = {
         template: "forms/ph-cf3-1.png",
         fields: [
           { id: "name1", x: 120, y: 885, },
-          { id: "date-admitted", x: 450, y: 1025,  },
+          { id: "date-admitted", x: 450, y: 1025,
+            charSpaces: [1, 8, 1, 8, 1, 2, 2]   },
           { id: "time-admitted-am", x: 1310, y: 1025,  },
           { id: "time-admitted-pm", x: 1520, y: 1025,  },
           { id: "chief-complaint", x: 1870, y: 920,  },
@@ -1334,12 +1349,15 @@ export const FORMS_CONFIG = {
       {
         template: "forms/ph-cf3-2.png",
         fields: [
-          { id: "menstrual-hx", x: 1425, y: 500, },
+          { id: "menstrual-hx", x: 1425, y: 500,
+            charSpaces: [2, 5, 1, 5, 1, 2, 1] },
           { id: "age-menarche", x: 2100, y: 500,  },
-          { id: "obstetric-hx", x: 1415, y: 590,  },
+          { id: "obstetric-hx", x: 1415, y: 590, 
+            charSpaces: [11, 7, 5, 5, 5] },
           { id: "admitting-diagnosis", x: 530, y: 1175, isMultiline: true, 
             anchorBottom: true ,maxWidth: 2000, lineHeight: 28 },
-          { id: "date-delivery", x: 815, y: 2150,  },
+          { id: "date-delivery", x: 815, y: 2150, 
+            charSpaces: [1, 6, 1, 5, 1, 1, 2] },
           { id: "time-delivery-am", x: 1410, y: 2150,  },
           { id: "time-delivery-pm", x: 1550, y: 2150,  },
           { id: "maternal-outcome", x: 550, y: 2300,  },
@@ -1352,7 +1370,8 @@ export const FORMS_CONFIG = {
           { id: "birth-apgar", x: 1980, y: 2440, },
           { id: "scheduled-postpartum", x: 1410, y: 2550, },
           { id: "scheduled-postpartum", x: 1480, y: 3320, },
-          { id: "date-discharge", x: 815, y: 2650, },
+          { id: "date-discharge", x: 815, y: 2650, 
+            charSpaces: [1, 6, 1, 5, 1, 1, 2] },
           { id: "time-discharge-am", x: 1425, y: 2650, },
           { id: "time-discharge-pm", x: 1565, y: 2650, },
         ],

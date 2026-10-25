@@ -43,6 +43,33 @@ GitHub Pages serves it fine as-is.
 - `src/draw-field.js` — canvas text-drawing helper (injectable context)
 - `src/__tests__/*.test.js` — Vitest unit tests
 
+### Field rendering rules
+
+`src/draw-field.js` supports a few optional per-field rules that change how a
+field's value is laid out on the form. They are declared on a field object in
+`forms-config.js` and apply to the live preview **and** every PDF export path
+automatically (single-page, multi-page, batch, debug).
+
+- **`padSpaces`** (text areas only) — prefixes the first line with a dot and the
+  given number of spaces, e.g. `padSpaces: 13`. Useful for forms that expect a
+  bullet/indent before the first line of a free-text block.
+
+- **`charSpaces`** (single-line text fields) — for "grid" style fields where the
+  form has individual character blocks (e.g. PhilHealth CF3). It is an array of
+  trailing-space counts, one per character. Character `i` is followed by
+  `charSpaces[i]` spaces so each typed character lands in its own block.
+  Characters beyond the end of the array are appended with no trailing padding.
+
+  Example — value `"ABCD"` with `charSpaces: [4, 10, 4]` renders as:
+  `A    B          C    D`
+
+      // forms-config.js
+      { id: "some-grid-field", type: "text", x: 120, y: 885, charSpaces: [4, 10, 4] }
+
+  The spacing counts are in monospace character widths, so they line up with the
+  form's printed blocks as long as the field uses a monospace font (the default
+  for most forms here).
+
 ### Theming
 All visual styling is in `style.css`. The JS only assigns a few stable class names
 (`.container`, `.grid`, `.quadrant`, `.meta-row`, `.now-btn`, `#pdfCanvas`, etc.),
