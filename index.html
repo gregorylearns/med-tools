@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forms Generator</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="assets/jspdf.umd.min.js"></script>
     <!-- Pico: classless base styling (buttons, inputs, typography, spacing) -->
     <link rel="stylesheet" href="assets/pico.css">
@@ -17,14 +18,14 @@
 <body>
 
     
-<div id="loginScreen" style="text-align:center; margin-top:100px;">
-    <h2>Forms Generator</h2>
-    <p>Enter access code:</p>
-
-    <input type="password" id="pw">
-    <button onclick="login()">Enter</button>
-
-    <p id="loginError" style="color:red;"></p>
+<div id="loginScreen" class="login-wrapper">
+    <article class="login-card">
+        <h2>Forms Generator</h2>
+        <p>Enter access code to continue</p>
+        <input type="password" id="pw" placeholder="Access code" autocomplete="current-password">
+        <button onclick="login()">Enter</button>
+        <p id="loginError" class="login-error"></p>
+    </article>
 </div>
 
 <div id="app" style="display:none;">
@@ -58,6 +59,21 @@
                     <button id="drawerToggle" type="button" aria-label="Toggle navigation" aria-expanded="true">☰</button>
                     <h1 id="formTitle">Forms Generator</h1>
                     <button id="previewToggle" type="button" aria-label="Toggle preview" aria-pressed="true">🔎</button>
+                </div>
+
+                <div id="aboutPanel">
+                    <h2>About Forms Generator</h2>
+                    <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
+                    <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me xD)</i></p>
+                    <p><i>For more info contact cnu-vsmmc clerk g. abrasaldo</i></p>
+                    <p><i>For any bug reports/suggestions please feel free to submit a pull request or send me an <a href="mailto:gaabrasaldo@gmail.com">email</a></i></p>
+                    <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
+                    <p>Special thanks to: Trisha for the encouragement, Mark Leo for the requests and beta testing, Rhean, Ros, BR, NVJ, CMG, MJD, batch Syncytium -> Siklab, batch Dextera, one.ders, surg and OB resis,</p>
+                    <p><i>ps: try using '3sha' as the access code</i></p>
+                    <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
+                    <img alt="version" src="https://img.shields.io/badge/version-1.0.0-blue">
+                    <p class="about-footer"><i>since June 2026</i></p>
+
                 </div>
 
                 <div id="formFieldsContainer" class="grid">
@@ -111,14 +127,7 @@
                     <button id="printBtn" onclick="generatePDF()">Generate PDF</button>
                 </div>
 
-                <p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p>
-                <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
-                <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me xD)</i></p>
-                <p><i>For more info contact cnu-vsmmc clerk g. abrasaldo</i></p>
-                <p><i>For any bug reports/suggestions please feel free to submit a pull request or send me an <a href="mailto:gaabrasaldo@gmail.com">email</a></i></p>
-                <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
-                <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
-                <img alt="version" src="https://img.shields.io/badge/version-0.2.0-blue">
+                <article><p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p></article>
             </section>
 
             <section class="preview-column" id="previewColumn">
@@ -131,6 +140,8 @@
     </div> <!-- closes .app-shell -->
 </div> <!-- closes #app -->
 
+<canvas id="emojiRain" class="emoji-rain"></canvas>
+
 <script type="module">
     import { FORMS_CONFIG } from './forms-config.js';
     import { parseBatchInput, parseFieldLine, mapLabelToFieldId, getOrpFieldMap } from './src/batch-parser.js';
@@ -140,15 +151,109 @@
     let currentFormKey = 'prescription';
     let previewCanvases = [];
 
+    const SECRET_PASSWORD = '3sha';
+
     function login() {
         const password = document.getElementById('pw').value;
         if (password === '1') {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('app').style.display = 'flex';
             initApp();
+        } else if (password === SECRET_PASSWORD) {
+            triggerEasterEgg();
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('app').style.display = 'flex';
+            initApp();
         } else {
             document.getElementById('loginError').textContent = 'Incorrect access code';
         }
+    }
+
+    // Enter key support on the password field
+    document.getElementById('pw').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            login();
+        }
+    });
+
+    // ===== Easter Egg =====
+    function triggerEasterEgg() {
+        document.body.classList.add('easter-egg');
+        startEmojiRain();
+        showToast('💖 You found the secret! 💖');
+    }
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'easter-toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function startEmojiRain() {
+        const canvas = document.getElementById('emojiRain');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const emojis = ['💖', '❤️', '😍', '💕', '💘', '💝'];
+        let particles = [];
+        let animationId;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function createParticle() {
+            return {
+                x: Math.random() * canvas.width,
+                y: -50,
+                speed: 1 + Math.random() * 3,
+                size: 20 + Math.random() * 20,
+                emoji: emojis[Math.floor(Math.random() * emojis.length)],
+                rotation: Math.random() * Math.PI * 2,
+                rotationSpeed: (Math.random() - 0.5) * 0.1,
+            };
+        }
+
+        for (let i = 0; i < 40; i++) {
+            const p = createParticle();
+            p.y = Math.random() * canvas.height;
+            particles.push(p);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p) => {
+                p.y += p.speed;
+                p.rotation += p.rotationSpeed;
+                if (p.y > canvas.height + 50) {
+                    p.y = -50;
+                    p.x = Math.random() * canvas.width;
+                }
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation);
+                ctx.font = `${p.size}px serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(p.emoji, 0, 0);
+                ctx.restore();
+            });
+            animationId = requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Stop after 8 seconds and remove the theme
+        setTimeout(() => {
+            cancelAnimationFrame(animationId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.body.classList.remove('easter-egg');
+            window.removeEventListener('resize', resize);
+        }, 8000);
     }
 
     function toggleDrawer() {
@@ -181,6 +286,17 @@
             list.appendChild(li);
         }
 
+        // Add About link
+        const aboutLi = document.createElement('li');
+        const aboutA = document.createElement('a');
+        aboutA.href = '#';
+        aboutA.className = 'secondary';
+        aboutA.dataset.formKey = 'about';
+        aboutA.textContent = 'About';
+        aboutA.onclick = (e) => { e.preventDefault(); showAbout(); };
+        aboutLi.appendChild(aboutA);
+        list.appendChild(aboutLi);
+
         // Load initial form
         selectForm(currentFormKey);
 
@@ -194,10 +310,33 @@
         initDebugMode();
     }
 
+    function showAbout() {
+        // Update active link
+        document.querySelectorAll('#formList a').forEach((a) => {
+            if (a.dataset.formKey === 'about') {
+                a.setAttribute('aria-current', 'page');
+            } else {
+                a.removeAttribute('aria-current');
+            }
+        });
+
+        // Hide form UI, show about panel
+        document.getElementById('formFieldsContainer').style.display = 'none';
+        document.getElementById('batchInputContainer').style.display = 'none';
+        document.getElementById('printBtn').style.display = 'none';
+        document.getElementById('tipMessage').style.display = 'none';
+        document.getElementById('previewColumn').style.display = 'none';
+        document.getElementById('aboutPanel').style.display = 'block';
+        document.getElementById('formTitle').textContent = 'About';
+    }
+
     function selectForm(formKey) {
         currentFormKey = formKey;
         const config = FORMS_CONFIG[formKey];
         if (!config) return;
+
+        // Hide the About panel when a form is selected
+        document.getElementById('aboutPanel').style.display = 'none';
 
         // Update active item in the left nav drawer
         document.querySelectorAll('#formList a').forEach((a) => {
