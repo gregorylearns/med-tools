@@ -123,8 +123,8 @@
 
             <section class="preview-column" id="previewColumn">
                 <div class="preview-label">Form Preview</div>
-                <!-- Canvas for Live Preview and Processing -->
-                <canvas id="pdfCanvas"></canvas>
+                <!-- Stacked, scrollable live-preview canvases (one per page) -->
+                <div id="previewStack"></div>
             </section>
 
         </main>
@@ -138,9 +138,7 @@
     import { drawField } from './src/draw-field.js';
 
     let currentFormKey = 'prescription';
-    const canvas = document.getElementById('pdfCanvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
+    let previewCanvases = [];
 
     function login() {
         const password = document.getElementById('pw').value;
@@ -313,44 +311,97 @@
             });
         }
 
-        // Load template image (for both batch and regular forms)
-        img.crossOrigin = "Anonymous";
-        // Multi-page forms (e.g. radio_combined) store the preview template in
-        // pages[0].template; fall back to it when there is no top-level template.
-        img.src = config.template || (config.pages && config.pages[0] && config.pages[0].template);
-        img.onload = () => {
-            canvas.width = config.canvasWidth;
-            canvas.height = config.canvasHeight;
-            updatePreview();
-        };
+        // Build the live-preview canvases (one per page, stacked & scrollable).
+        // Multi-page forms render every page at once; single-page forms render one.
+        if (isBatch) {
+            const stack = document.getElementById('previewStack');
+            if (stack) stack.innerHTML = '';
+            previewCanvases = [];
+        } else {
+            buildPreview();
+        }
     }
 
-    function updatePreview() {
-        if (!img.complete) return;
+    // Flatten all section fields into a single list (used for single-page preview).
+    function flattenSections(sections) {
+        const fields = [];
+        (sections || []).forEach((s) => s.fields.forEach((f) => fields.push(f)));
+        return fields;
+    }
 
+    // (Re)build the stacked preview canvases for the current form.
+    function buildPreview() {
         const config = FORMS_CONFIG[currentFormKey];
         if (!config) return;
+        const stack = document.getElementById('previewStack');
+        if (!stack) return;
+        stack.innerHTML = '';
+        previewCanvases = [];
 
-        // 1. Clear and Draw Template
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // Multi-page forms: one canvas per page (each with its own template +
+        // per-page coordinates). Single-page forms: one canvas from sections.
+        const pages = (config.pages && config.pages.length)
+            ? config.pages
+            : [{ template: config.template, fields: flattenSections(config.sections) }];
 
-        // 2. Text Styling
-        ctx.fillStyle = "black";
-        ctx.textBaseline = "top";
-
-        // Draw all fields using the drawField helper
-        config.sections.forEach((section) => {
-            section.fields.forEach((field) => {
-                const element = document.getElementById(field.id);
-                if (!element) return;
-
-                const val = element.value || '';
-                if (!val) return;
-
-                drawField(ctx, field, val, config.font);
+        pages.forEach((page) => {
+            const c = document.createElement('canvas');
+            c.className = 'preview-canvas';
+            stack.appendChild(c);
+            previewCanvases.push({
+                canvas: c,
+                ctx: c.getContext('2d'),
+                page,
+                img: null,
             });
         });
+
+        previewCanvases.forEach((_, i) => loadPreviewPage(i));
+    }
+
+    // Load a page's template image, then draw it once it's ready.
+    function loadPreviewPage(i) {
+        const config = FORMS_CONFIG[currentFormKey];
+        const entry = previewCanvases[i];
+        if (!config || !entry) return;
+        const image = new Image();
+        image.crossOrigin = "Anonymous";
+        image.onload = () => {
+            entry.img = image;
+            entry.canvas.width = config.canvasWidth;
+            entry.canvas.height = config.canvasHeight;
+            drawPreviewPage(i);
+        };
+        image.onerror = () => {
+            console.warn("Preview template failed to load:", entry.page.template);
+        };
+        image.src = entry.page.template;
+    }
+
+    // Draw (or redraw) a single preview page using its cached template image.
+    function drawPreviewPage(i) {
+        const config = FORMS_CONFIG[currentFormKey];
+        const entry = previewCanvases[i];
+        if (!config || !entry || !entry.img || !entry.img.complete) return;
+        const { canvas, ctx, img, page } = entry;
+        ctx.clearRect(0, 0, config.canvasWidth, config.canvasHeight);
+        ctx.drawImage(img, 0, 0, config.canvasWidth, config.canvasHeight);
+        ctx.fillStyle = "black";
+        ctx.textBaseline = "top";
+        page.fields.forEach((field) => {
+            const element = document.getElementById(field.id);
+            if (!element) return;
+            const val = element.value || '';
+            if (!val) return;
+            drawField(ctx, field, val, config.font);
+        });
+    }
+
+    // Redraw every preview page (called on every input / Now button).
+    function updatePreview() {
+        const config = FORMS_CONFIG[currentFormKey];
+        if (!config) return;
+        previewCanvases.forEach((_, i) => drawPreviewPage(i));
     }
 
     function setNow(id, mode) {
@@ -448,7 +499,7 @@
                     });
                 } else {
                     // Single-page form (existing behavior)
-                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                    const imgData = previewCanvases[0].canvas.toDataURL('image/jpeg', 0.95);
                     pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
                     const pdfBlob = pdf.output('blob');
                     const blobUrl = URL.createObjectURL(pdfBlob);
