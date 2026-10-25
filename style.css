@@ -108,6 +108,8 @@ body {
 .topbar h1 {
     margin: 0;
     font-size: 1.5rem;
+    flex: 1 1 auto;
+    text-align: center;
 }
 
 #drawerToggle {
@@ -118,7 +120,10 @@ body {
     background: transparent;
     border: 1px solid var(--pico-muted-border-color);
     border-radius: var(--pico-border-radius, 0.5rem);
-    color: var(--pico-color);
+    /* Use inherit (not var(--pico-color)): Pico redefines --pico-color to white
+       on every <button>, so var(--pico-color) resolves to white and is invisible
+       on a light background. inherit picks up the real body text color. */
+    color: inherit;
     cursor: pointer;
 }
 
@@ -126,9 +131,35 @@ body {
     background: var(--pico-secondary-background, var(--pico-muted-border-color));
 }
 
+/* Preview collapse toggle — mirrors the drawer toggle styling */
+#previewToggle {
+    flex: 0 0 auto;
+    font-size: 0.85rem;
+    line-height: 1;
+    padding: 0.4rem 0.6rem;
+    background: transparent;
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius, 0.5rem);
+    color: inherit;
+    cursor: pointer;
+}
+
+#previewToggle:hover {
+    background: var(--pico-secondary-background, var(--pico-muted-border-color));
+}
+
 /* Collapsed state: hide the drawer, let main fill the width */
 .app-shell.drawer-collapsed .app-drawer {
     display: none;
+}
+
+/* Collapsed state: hide the preview column, let editor fill the width */
+.app-shell.preview-collapsed .preview-column {
+    display: none;
+}
+
+.app-shell.preview-collapsed .editor-column {
+    flex: 1 1 100%;
 }
 
 /* Main area: two columns (editor | preview) */

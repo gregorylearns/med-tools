@@ -57,6 +57,7 @@
                 <div class="topbar">
                     <button id="drawerToggle" type="button" aria-label="Toggle navigation" aria-expanded="true">☰</button>
                     <h1 id="formTitle">Forms Generator</h1>
+                    <button id="previewToggle" type="button" aria-label="Toggle preview" aria-pressed="true">🔎</button>
                 </div>
 
                 <div id="formFieldsContainer" class="grid">
@@ -106,13 +107,14 @@
                     </div>
                 </div>
 
-                <p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p>
-                <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
-                <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me xD)</i></p>
                 <div class="controls">
                     <button id="printBtn" onclick="generatePDF()">Generate PDF</button>
                 </div>
-                <p><i>For more info contact cnu-vsmmc clerk g. abrasaldo</i></p>    
+
+                <p><i id="tipMessage">Tip: press the Tab key after each input field to move to the next field</i></p>
+                <p>Made with love for CNU-VSMMC clerkship '26-'27</p>
+                <p><i>If you want to extend your thanks, modawat rakog kape (or gcash, or you can hire me xD)</i></p>
+                <p><i>For more info contact cnu-vsmmc clerk g. abrasaldo</i></p>
                 <p><i>For any bug reports/suggestions please feel free to submit a pull request or send me an <a href="mailto:gaabrasaldo@gmail.com">email</a></i></p>
                 <p><i>This is a hobby project and is in no way official and affiliated with VSMMC. All rights belong to their respective owners.</i></p>
                 <img src="https://visitor-badge.laobi.icu/badge?page_id=medtoolsgregory.visitor-badge&left_text=visitors&format=true" alt="visitor badge"/>
@@ -158,6 +160,13 @@
         if (btn) btn.setAttribute('aria-expanded', String(!collapsed));
     }
 
+    function togglePreview() {
+        const shell = document.querySelector('.app-shell');
+        const collapsed = shell.classList.toggle('preview-collapsed');
+        const btn = document.getElementById('previewToggle');
+        if (btn) btn.setAttribute('aria-pressed', String(!collapsed));
+    }
+
     function initApp() {
         // Populate the left nav drawer with one link per form
         const list = document.getElementById('formList');
@@ -179,6 +188,9 @@
 
         // Drawer collapse/expand toggle
         document.getElementById('drawerToggle').addEventListener('click', toggleDrawer);
+
+        // Preview show/hide toggle
+        document.getElementById('previewToggle').addEventListener('click', togglePreview);
 
         // Debug mode (lorem auto-fill) — only active with ?debug=1
         initDebugMode();
