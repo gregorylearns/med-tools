@@ -81,6 +81,7 @@ body {
     background: transparent;
     border: 1px solid transparent;
     transition: background-color 0.15s ease, color 0.15s ease;
+    font-size: 0.7rem;
 }
 
 .app-drawer a:hover {
@@ -106,6 +107,7 @@ body {
 
 .topbar h1 {
     margin: 0;
+    font-size: 1.5rem;
 }
 
 #drawerToggle {
@@ -142,6 +144,7 @@ body {
     min-width: 0;
     overflow-y: auto;
     padding: 1.5rem;
+    font-size: 16px;
 }
 
 .preview-column {
@@ -177,22 +180,24 @@ body {
     border: 1px solid var(--pico-muted-border-color);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
 }
 
 .meta-row {
     display: flex;
-    gap: 8px;
+    gap: 4px;
 }
 
 .meta-row input {
-    padding: 8px;
+    padding: 0 12px;
+    height: 32px;
     border: 1px solid var(--pico-muted-border-color);
     border-radius: 4px;
     font-size: 13px;
     flex: 1;
     min-width: 0;
     box-sizing: border-box;
+    margin-bottom: 0px;
 }
 
 .meta-row input.small {
@@ -202,6 +207,7 @@ body {
 .meta-row .now-btn {
     flex: 0 0 auto;
     padding: 8px 12px;
+    margin: 0;
     font-size: 12px;
     background-color: #28a745;
     color: white;
@@ -316,6 +322,7 @@ body {
     .app-main {
         flex-direction: column;
         overflow: visible;
+        font-size: 12px;
     }
 
     .preview-column {
