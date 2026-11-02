@@ -981,6 +981,36 @@ export const FORMS_CONFIG = {
             flex: 1,
             newRow: true
           },
+          {
+            id: "pmh",
+            label: "Past Medical History",
+            type: "textarea",
+            isMultiline: true,
+            maxWidth: 1200,
+            lineHeight: 36,
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "medication",
+            label: "Medication",
+            type: "text",
+            isMultiline: true,
+            maxWidth: 1200,
+            lineHeight: 36,
+            flex: 1,
+            newRow: true
+          },
+          {
+            id: "surgicalhx",
+            label: "Surgical History",
+            type: "textarea",
+            isMultiline: true,
+            maxWidth: 1200,
+            lineHeight: 36,
+            flex: 1,
+            newRow: true
+          },
         ],
       },
     ],
@@ -999,11 +1029,11 @@ export const FORMS_CONFIG = {
           { id: "ward1", x: 1330, y: 640,  },
           { id: "sex1", x: 310, y: 690,  },
           { id: "LMP1", x: 660, y: 690,  },
-          { id: "address1", x: 380, y: 740,  },
+          { id: "address1", x: 380, y: 750,  },
           { id: "req_exam1", x: 680, y: 800,  },
-          { id: "diag1", x: 405, y: 970,  },
+          { id: "diag1", x: 405, y: 985, anchorBottom: true, isMultiline: true, maxWidth: 1400, lineHeight: 26,   },
           { id: "indication1", x: 930, y: 1030,  },
-          { id: "history1", x: 225, y: 1090, isMultiline: true, maxWidth: 1600, lineHeight: 36, padSpaces: 13 },
+          { id: "history1", x: 225, y: 1090, isMultiline: true, maxWidth: 1600, lineHeight: 26, padSpaces: 13 },
         ],
       },
       {
@@ -1017,7 +1047,20 @@ export const FORMS_CONFIG = {
           { id: "sex1", x: 1600, y: 650,  },
           { id: "DOB1", x: 2040, y: 650,  },
           { id: "address1", x: 260, y: 780,  },
-          { id: "history1", x: 90, y: 1220, isMultiline: true, maxWidth: 2300, lineHeight: 36 },
+          { id: "history1", x: 90, y: 1220, isMultiline: true, maxWidth: 2300, lineHeight: 26 },
+          { id: "pmh", x: 90, y: 1510, isMultiline: true, maxWidth: 2300, lineHeight: 26 },
+          { id: "medication", x: 90, y: 1820, isMultiline: true, maxWidth: 2300, lineHeight: 26, anchorBottom: true },
+          { id: "surgicalhx", x: 90, y: 2020, isMultiline: true, maxWidth: 2300, lineHeight: 26 },
+
+        ],
+      },
+      {
+        template: "forms/ctwaiver.png",
+        fields: [
+          { id: "req_exam1", x: 1440, y: 960,},
+          { id: "diag1", x: 270, y: 1420,  isMultiline: true, maxWidth: 2000, lineHeight: 26,  },
+          { id: "history1", x: 270, y: 1850, isMultiline: true, maxWidth: 2000, lineHeight: 26,    }, // TODO: add procedures performed
+          { id: "surgicalhx", x: 270, y: 2260, isMultiline: true, maxWidth: 2000, lineHeight: 26,    }, 
         ],
       },
     ],
