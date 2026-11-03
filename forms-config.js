@@ -1507,7 +1507,8 @@ export const FORMS_CONFIG = {
           },
           {
             id: "sp_operationdone", label: "Operation Done", placeholder: "Operation Done:",
-            type: "text", x: 135, y: 2130,
+            type: "text", x: 135, y: 2030, maxWidth: 1150, anchorBottom: true, isMultiline: true, lineHeight: 22,
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
           {
@@ -1517,12 +1518,13 @@ export const FORMS_CONFIG = {
           },
           {
             id: "sp_suturetags", label: "Suture Tags", placeholder: "Suture Tags:",
-            type: "text", x: 615, y: 955,
+            type: "text", x: 135, y: 2150, maxWidth: 2250, anchorBottom: true, isMultiline: true, lineHeight: 22,
             newRow: true
           },
           {
             id: "sp_postopdiag", label: "Post Operative Diagnosis", placeholder: "Post Operative Diagnosis:",
-            type: "text", x: 135, y: 2250,
+            type: "text", x: 135, y: 2250, maxWidth: 2250, anchorBottom: true, isMultiline: true, lineHeight: 22,
+            font: "28px 'Iosevka', monospace",
             newRow: true
           },
         ],
