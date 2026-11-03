@@ -556,7 +556,7 @@ export const FORMS_CONFIG = {
     ],
   },
   orproposal_batch: {
-    name: "Batch OR Proposal Generator (BETA)",
+    name: "Batch OR Proposal Generator",
     font: "36px 'Iosevka', monospace",
     template: "forms/orproposal.png",
     canvasWidth: 2480,
@@ -871,7 +871,7 @@ export const FORMS_CONFIG = {
     ],
   },
   radio_combined: {
-    name: "Radio Combined (Request + CT Scan)",
+    name: "Radio Combined (Request + CT Scan + Waiver)",
     font: "28px 'Iosevka', monospace",
     canvasWidth: 2480,
     canvasHeight: 3508,
@@ -1066,7 +1066,7 @@ export const FORMS_CONFIG = {
     ],
   },
   cf3: {
-    name: "PhilHealth CF3 (under testing)",
+    name: "PhilHealth CF3",
     font: "30px 'Iosevka', monospace",
     canvasWidth: 2550,
     canvasHeight: 4200,

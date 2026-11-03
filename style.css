@@ -67,14 +67,14 @@ body {
 
 .app-drawer li {
     display: block;
-    margin-bottom: 0.25rem;
+    margin-bottom: -0.5rem;
 }
 
 /* Drawer links styled as sidebar nav items. Pico's classless <nav> only
    colors .secondary links (gray text), so we add the block/button look here. */
 .app-drawer a {
     display: block;
-    padding: 0.5rem 0.75rem;
+    padding: 0.25rem 0.75rem 0.25rem;
     border-radius: var(--pico-border-radius, 0.5rem);
     color: var(--pico-color);
     text-decoration: none;
@@ -257,6 +257,7 @@ body {
     width: 100%;
     height: 150px;
     padding: 10px;
+    margin: 0;
     border: 1px dashed var(--pico-muted-border-color);
     resize: none;
     box-sizing: border-box;
